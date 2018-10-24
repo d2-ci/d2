@@ -59,6 +59,7 @@ var AnalyticsRequest = function (_AnalyticsRequestDime) {
          * Extracts dimensions and filters from an analytic object model and add them to the request
          *
          * @param {Object} model The analytics object model from which extract the dimensions/filters
+         * @param {Boolean} [passFilterAsDimension=false] Pass filters as dimension in the query string (used in dataValueSet requests)
          *
          * @returns {AnalyticsRequest} A new instance of the class for chaining purposes
          *
@@ -67,8 +68,15 @@ var AnalyticsRequest = function (_AnalyticsRequestDime) {
          *    .fromModel(model);
          *
          * // dimension=pe:LAST_12_MONTH&dimension=dx:fbfJHSPpUQD;cYeuwXTCPkU;Jtf34kNZhzP;hfdmMSPBgLG&filter=ou:ImspTQPwCqd
+         *
+         * const req2 = new d2.analytics.request()
+         *    .fromModel(model, true);
+         *
+         * // dimension=pe:LAST_12_MONTH&dimension=dx:fbfJHSPpUQD;cYeuwXTCPkU;Jtf34kNZhzP;hfdmMSPBgLG&dimension=ou:ImspTQPwCqd
          */
         value: function fromModel(model) {
+            var passFilterAsDimension = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
             var request = this;
 
             // extract dimensions from model
@@ -91,7 +99,9 @@ var AnalyticsRequest = function (_AnalyticsRequestDime) {
             var filters = model.filters || [];
 
             filters.forEach(function (f) {
-                return request = request.addFilter(f.dimension, f.items.map(function (item) {
+                request = passFilterAsDimension ? request.addDimension(f.dimension, f.items.map(function (item) {
+                    return item.id;
+                })) : request.addFilter(f.dimension, f.items.map(function (item) {
                     return item.id;
                 }));
             });

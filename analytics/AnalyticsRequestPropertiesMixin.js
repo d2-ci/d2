@@ -134,7 +134,7 @@ var AnalyticsRequestPropertiesMixin = function AnalyticsRequestPropertiesMixin(b
 
                     if (aggregationTypes.has(aggregationType)) {
                         this.parameters.aggregationType = aggregationType;
-                    } else {
+                    } else if (aggregationType !== 'DEFAULT') {
                         console.warn('d2.analytics.request.withAggregationType(): "' + value + '" not listed as possible value');
                         this.parameters.aggregationType = value;
                     }

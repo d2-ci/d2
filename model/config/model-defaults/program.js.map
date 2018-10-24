@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/model/config/model-defaults/program.js"],"names":["version","completeEventsExpiryDays","expiryDays"],"mappings":";;;;;kBAAe;AACXA,aAAS,CADE;AAEXC,8BAA0B,CAFf;AAGXC,gBAAY;AAHD,C","file":"program.js","sourcesContent":["export default {\n    version: 0,\n    completeEventsExpiryDays: 0,\n    expiryDays: 0,\n};\n"]}

@@ -41,6 +41,17 @@ var Config = function () {
             return Object.assign.apply(Object, [{}, _defaultConfig2.default].concat(args));
         }
     }, {
+        key: 'processPreInitConfig',
+        value: function processPreInitConfig(preinitConfig, api) {
+            if (preinitConfig.headers) {
+                api.setDefaultHeaders(preinitConfig.headers);
+            }
+
+            if (preinitConfig.baseUrl) {
+                api.setBaseUrl(preinitConfig.baseUrl);
+            }
+        }
+    }, {
         key: 'processConfigForD2',
         value: function processConfigForD2(config, d2) {
             var api = d2.Api.getApi();
@@ -52,6 +63,14 @@ var Config = function () {
             } else {
                 // default to the current version of the `/api`
                 api.setBaseUrl('/api');
+            }
+
+            if (config.headers) {
+                api.setDefaultHeaders(config.headers);
+            }
+
+            if (config.unauthorizedCb) {
+                api.setUnauthorizedCallback(config.unauthorizedCb);
             }
 
             if (config.i18n && config.i18n.sources) {

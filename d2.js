@@ -137,8 +137,8 @@ function getUserSettings() {
 
     var api = ApiClass.getApi();
 
-    if (preInitConfig.baseUrl && firstRun) {
-        api.setBaseUrl(preInitConfig.baseUrl);
+    if (firstRun) {
+        _config2.default.processPreInitConfig(preInitConfig, api);
     }
 
     return api.get('userSettings');
@@ -183,6 +183,9 @@ function getModelRequests(api, schemaNames) {
  * baseUrl: Set this when the url is something different then `/api`. If you are running your dhis instance in a subdirectory of the actual domain
  * for example http://localhost/dhis/ you should set the base url to `/dhis/api`
  *
+ * unauthorizedCb: A callback function that is called whenever a API-request encounters a 401 - Unauthorized response.
+ *  The function is called with (request, response) - the request object that failed, and the parsed response from the server.
+ *
  * @param {Object} initConfig Configuration object that will be used to configure to define D2 Setting.
  * See the description for more information on the available settings.
  * @returns {Promise.<D2>} A promise that resolves with the intialized {@link init~d2|d2} object.
@@ -202,10 +205,6 @@ function init(initConfig) {
     var api = ApiClass.getApi();
 
     var config = _config2.default.create(preInitConfig, initConfig);
-
-    if (config.headers) {
-        api.setDefaultHeaders(config.headers);
-    }
 
     /**
      * @namespace

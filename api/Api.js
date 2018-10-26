@@ -100,7 +100,11 @@ var Api = function () {
             credentials: 'include', // include cookies with same-origin requests
             cache: 'default' // See https://fetch.spec.whatwg.org/#concept-request-cache-mode
         };
-        this.defaultHeaders = {};
+        this.defaultHeaders = {
+            'X-Requested-With': 'XMLHttpRequest'
+        };
+
+        this.unauthorizedCallback = null;
     }
 
     /**
@@ -121,6 +125,22 @@ var Api = function () {
         key: 'setDefaultHeaders',
         value: function setDefaultHeaders(headers) {
             this.defaultHeaders = headers;
+        }
+
+        /**
+         * When any request encounters a 401 - Unauthorized. This callback is called.
+         * Useful for when you want an session expiration-handler API-wide.
+         *
+         * @param {*} cb - Function to call when any request recieves a 401. Called with the response from the server.
+         */
+
+    }, {
+        key: 'setUnauthorizedCallback',
+        value: function setUnauthorizedCallback(cb) {
+            if (typeof cb !== 'function') {
+                throw new Error('Callback must be a function.');
+            }
+            this.unauthorizedCallback = cb;
         }
 
         /**
@@ -347,11 +367,23 @@ var Api = function () {
                         });
                     } else {
                         response.text().then(function (text) {
+                            var parsedResponseData = parseResponseData(text);
+                            if (response.status === 401) {
+                                var request = {
+                                    method: method,
+                                    url: url,
+                                    data: data,
+                                    options: options
+                                };
+                                if (_this.unauthorizedCallback) {
+                                    _this.unauthorizedCallback(request, parsedResponseData);
+                                }
+                            }
                             if (!process.env || process.env.npm_lifecycle_event !== 'test') {
                                 console.warn( // eslint-disable-line
                                 'API request failed with status ' + response.status + ' ' + response.statusText + '\n', 'Request: ' + requestOptions.method + ' ' + requestUrl);
                             }
-                            reject(parseResponseData(text));
+                            reject(parsedResponseData);
                         });
                     }
                 }).catch(function (err) {
@@ -360,6 +392,7 @@ var Api = function () {
                     if (!process.env || process.env.npm_lifecycle_event !== 'test') {
                         console.error('Server connection error:', err); // eslint-disable-line
                     }
+
                     reject('Server connection failed for API request: ' + requestOptions.method + ' ' + requestUrl);
                 });
             });

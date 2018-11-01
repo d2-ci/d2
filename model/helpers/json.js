@@ -28,7 +28,8 @@ var NON_MODEL_COLLECTIONS = {
     favorites: [],
     columns: [],
     rows: [],
-    filters: []
+    filters: [],
+    yearlySeries: []
 };
 
 var isNonModelCollection = function isNonModelCollection(propertyName, modelType) {

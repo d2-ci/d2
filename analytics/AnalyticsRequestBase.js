@@ -77,7 +77,10 @@ var AnalyticsRequestBase = function () {
                 dimensions = (0, _lodash.cloneDeep)(dimensions);
 
                 dimensions.sort(function (a, b) {
-                    return a.dimension > b.dimension;
+                    if (a.dimension < b.dimension) {
+                        return -1;
+                    }
+                    return a.dimension === b.dimension ? 0 : 1;
                 });
             }
 
@@ -126,7 +129,10 @@ var AnalyticsRequestBase = function () {
                 filters = (0, _lodash.cloneDeep)(filters);
 
                 filters.sort(function (a, b) {
-                    return a.dimension > b.dimension;
+                    if (a.dimension < b.dimension) {
+                        return -1;
+                    }
+                    return a.dimension === b.dimension ? 0 : 1;
                 });
             }
 

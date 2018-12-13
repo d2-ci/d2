@@ -77,7 +77,7 @@ var AnalyticsBase = function () {
             var dataReq = new _AnalyticsRequest2.default(req).withSkipData(false).withSkipMeta(true).withIncludeNumDen().withDisplayProperty('SHORTNAME');
 
             // parallelize requests
-            return Promise.all([this.fetch(dataReq, { sorted: true }), this.fetch(metaDataReq, { sorted: true })]).then(function (responses) {
+            return Promise.all([this.fetch(dataReq, { sorted: true }), this.fetch(metaDataReq)]).then(function (responses) {
                 return Promise.resolve(_extends({}, responses[0], { metaData: responses[1].metaData }));
             });
         }

@@ -8,9 +8,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _lodash = require('lodash');
+var _sortBy = require('lodash/sortBy');
+
+var _sortBy2 = _interopRequireDefault(_sortBy);
 
 var _utils = require('../lib/utils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -74,14 +78,7 @@ var AnalyticsRequestBase = function () {
             var dimensions = this.dimensions;
 
             if (options && options.sorted) {
-                dimensions = (0, _lodash.cloneDeep)(dimensions);
-
-                dimensions.sort(function (a, b) {
-                    if (a.dimension < b.dimension) {
-                        return -1;
-                    }
-                    return a.dimension === b.dimension ? 0 : 1;
-                });
+                dimensions = (0, _sortBy2.default)(dimensions, 'dimension');
             }
 
             var encodedDimensions = dimensions.map(function (_ref2) {
@@ -89,11 +86,12 @@ var AnalyticsRequestBase = function () {
                     items = _ref2.items;
 
                 if (Array.isArray(items) && items.length) {
+                    var encodedItems = items.map(_utils.customEncodeURIComponent);
                     if (options && options.sorted) {
-                        items.sort();
+                        encodedItems.sort();
                     }
 
-                    return dimension + ':' + items.map(_utils.customEncodeURIComponent).join(';');
+                    return dimension + ':' + encodedItems.join(';');
                 }
 
                 return dimension;
@@ -126,14 +124,7 @@ var AnalyticsRequestBase = function () {
             var filters = this.filters;
 
             if (options && options.sorted) {
-                filters = (0, _lodash.cloneDeep)(filters);
-
-                filters.sort(function (a, b) {
-                    if (a.dimension < b.dimension) {
-                        return -1;
-                    }
-                    return a.dimension === b.dimension ? 0 : 1;
-                });
+                filters = (0, _sortBy2.default)(filters, 'dimension');
             }
 
             var encodedFilters = filters.map(function (_ref3) {
@@ -141,11 +132,12 @@ var AnalyticsRequestBase = function () {
                     items = _ref3.items;
 
                 if (Array.isArray(items) && items.length) {
+                    var encodedItems = items.map(_utils.customEncodeURIComponent);
                     if (options && options.sorted) {
-                        items.sort();
+                        encodedItems.sort();
                     }
 
-                    return dimension + ':' + items.map(_utils.customEncodeURIComponent).join(';');
+                    return dimension + ':' + encodedItems.join(';');
                 }
 
                 return dimension;

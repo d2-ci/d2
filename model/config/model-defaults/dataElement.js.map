@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/model/config/model-defaults/dataElement.js"],"names":["aggregationType","valueType"],"mappings":";;;;;kBAAe;AACXA,qBAAiB,KADN;AAEXC,eAAW;AAFA,C","file":"dataElement.js","sourcesContent":["export default {\n    aggregationType: 'SUM',\n    valueType: 'NUMBER',\n};\n"]}

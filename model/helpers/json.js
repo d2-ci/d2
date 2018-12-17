@@ -29,7 +29,8 @@ var NON_MODEL_COLLECTIONS = {
     columns: [],
     rows: [],
     filters: [],
-    yearlySeries: []
+    yearlySeries: [],
+    interpretations: ['chart']
 };
 
 var isNonModelCollection = function isNonModelCollection(propertyName, modelType) {

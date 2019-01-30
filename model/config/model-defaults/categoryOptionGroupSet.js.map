@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/model/config/model-defaults/categoryOptionGroupSet.js"],"names":["dataDimension"],"mappings":";;;;;kBAAe;AACXA,mBAAe;AADJ,C","file":"categoryOptionGroupSet.js","sourcesContent":["export default {\n    dataDimension: true,\n};\n"]}

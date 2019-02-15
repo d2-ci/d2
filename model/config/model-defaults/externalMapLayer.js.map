@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/model/config/model-defaults/externalMapLayer.js"],"names":["mapService","imageFormat","mapLayerPosition"],"mappings":";;;;;kBAAe;AACXA,gBAAY,KADD;AAEXC,iBAAa,KAFF;AAGXC,sBAAkB;AAHP,C","file":"externalMapLayer.js","sourcesContent":["export default {\n    mapService: 'WMS',\n    imageFormat: 'PNG',\n    mapLayerPosition: 'BASEMAP',\n};\n"]}

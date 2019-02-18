@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>UserDataStore - Documentation</title>
+    <title>period/helpers.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,1113 +27,220 @@
 
 <div id="main">
     
-    <h1 class="page-title">UserDataStore</h1>
+    <h1 class="page-title">period/helpers.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
-    
-        <h2>
-            <span class="ancestors"><a href="module-current-user.html">current-user</a>.</span>
-        
-        UserDataStore
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    <h4 class="name" id="UserDataStore"><span class="type-signature"></span>new UserDataStore<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="datastore_UserDataStore.js.html">datastore/UserDataStore.js</a>, <a href="datastore_UserDataStore.js.html#line36">line 36</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Represents the UserDataStore that can be interacted with. This can be used to get instances of UserDataStoreNamespace, which
-can be used to interact with the <a href="module-current-user.UserDataStoreNamespace.html">namespace API</a>.</p>
-<p>The store is a key-value store, where a namespace contains a list of keys, and
-a key corresponds to an arbitrary JSON-object. The store is per-user, and only the currently logged-in user
-has access to the namespaces.</p>
-<p>Note that a namespace cannot exist without at least one key-value pair, for this reason
-you need to call <a href="module-current-user.UserDataStoreNamespace.html#set">set()</a> after <a href="module-current-user.UserDataStore.html#create">create()</a> to save a namespace
-with a key and a value.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Examples</h5>
-    
-        <p class="code-caption">Getting a value with promise-syntax</p>
-    
-    <pre class="prettyprint"><code>import { init } from 'd2';
-
-init({baseUrl: 'https://play.dhis2.org/demo/api'})
-  .then((d2) => {
-    d2.currentUser.dataStore.get('namespace').then(namespace => {
-         namespace.get('key').then(value => console.log(value))
-     });
-  });</code></pre>
-
-        <p class="code-caption">Creation of namespace with async-syntax</p>
-    
-    <pre class="prettyprint"><code>const namespace = await d2.currentUser.dataStore.create('new namespace', false);
-// The namespace is not actually created on the server before 'set' is called
-await namespace.set('new key', value);</code></pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="module-datastore.BaseStore.html">module:datastore.BaseStore</a></li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".getUserDataStore"><span class="type-signature">(static) </span>getUserDataStore<span class="signature">()</span><span class="type-signature"> &rarr; {UserDataStore}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="datastore_UserDataStore.js.html">datastore/UserDataStore.js</a>, <a href="datastore_UserDataStore.js.html#line87">line 87</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Get a new instance of the userDataStore object. This will function as a singleton - when a UserDataStore object has been created
-when requesting getUserDataStore again, the original version will be returned.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Object with the userDataStore interaction properties</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">UserDataStore</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="create"><span class="type-signature"></span>create<span class="signature">(namespace)</span><span class="type-signature"> &rarr; {Promise.&lt;UserDataStoreNamespace>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="datastore_UserDataStore.js.html">datastore/UserDataStore.js</a>, <a href="datastore_UserDataStore.js.html#line73">line 73</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-datastore.BaseStore.html#create">module:datastore.BaseStore#create</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Creates a namespace. Ensures that the namespace does not exists on the server.
-Note that for the namespace to be saved on the server, you need to call <a href="module-current-user.UserDataStoreNamespace.html#set">set</a>.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-        <p class="code-caption">Creating a namespace</p>
-    
-    <pre class="prettyprint"><code>d2.currentUser.dataStore.create('new namespace').then(namespace => {
-    namespace.set('new key', value);
-});</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>namespace</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The namespace to create.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>An instance of the current store-Namespace-instance representing the namespace that can be interacted with, or
-an error if namespace exists.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;UserDataStoreNamespace></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="delete"><span class="type-signature"></span>delete<span class="signature">(namespace)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="datastore_BaseStore.js.html">datastore/BaseStore.js</a>, <a href="datastore_BaseStore.js.html#line102">line 102</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="module-datastore.BaseStore.html#delete">module:datastore.BaseStore#delete</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Deletes a namespace</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>namespace</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The namespace to delete.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>the response body from the <a href="module-api.Api.html#get">API</a>.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(namespace, autoLoad<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;UserDataStoreNamespace>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="datastore_UserDataStore.js.html">datastore/UserDataStore.js</a>, <a href="datastore_UserDataStore.js.html#line57">line 57</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-datastore.BaseStore.html#get">module:datastore.BaseStore#get</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Tries to get the given namespace from the server, and returns an instance of 'UserDataStore' that
-may be used to interact with this namespace. See <a href="module-current-user.UserDataStoreNamespace.html">UserDataStoreNamespace</a>.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-        <p class="code-caption">Getting a namespace</p>
-    
-    <pre class="prettyprint"><code>d2.currentUser.dataStore.get('namespace').then(namespace => {
-    namespace.set('new key', value);
-});</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>namespace</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Namespace to get.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>autoLoad</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>true</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>If true, autoloads the keys of the namespace from the server.
-If false, an instance of the namespace is returned without any keys (no request is sent to the server).</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>An instance of a UserDataStoreNamespace representing the namespace that can be interacted with.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;UserDataStoreNamespace></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getAll"><span class="type-signature"></span>getAll<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="datastore_BaseStore.js.html">datastore/BaseStore.js</a>, <a href="datastore_BaseStore.js.html#line63">line 63</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="module-datastore.BaseStore.html#getAll">module:datastore.BaseStore#getAll</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
     
-</dl>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { isInteger } from '../lib/check';
 
+export function formatAsISODate(date) {
+    if (!(date instanceof Date)) {
+        throw new Error('formatAsISODate(date) only accepts Date objects');
+    }
 
+    const y = date.getFullYear();
+    const m = `0${date.getMonth() + 1}`.substr(-2);
+    const d = `0${date.getDate()}`.substr(-2);
+    return `${y}-${m}-${d}`;
+}
 
+export function filterFuturePeriods(periods) {
+    const array = [];
+    const now = new Date();
 
+    for (let i = 0; i &lt; periods.length; i++) {
+        if (new Date(periods[i].startDate) &lt;= now) {
+            array.push(periods[i]);
+        }
+    }
 
-<div class="description">
-    <p>Retrieves a list of all namespaces on the server.</p>
-</div>
+    return array;
+}
 
+export function getYYYYMM(date) {
+    const y = date.getFullYear();
+    let m = `${date.getMonth() + 1}`;
+    m = `0${m}`.substr(-2);
+    return y + m;
+}
 
+export function getBiMonthlyId(date) {
+    const y = date.getFullYear();
+    const m = `0${Math.floor(date.getMonth() / 2) + 1}`.substr(-2);
+    return `${y + m}B`;
+}
 
+export function validateIfValueIsInteger(year) {
+    if (!isInteger(year)) {
+        throw new Error(
+            'Generator should be called with an integer to identify the year.' +
+            ' Perhaps you passed a Date object?',
+        );
+    }
 
+    if (year &lt; 0) {
+        throw new Error('Generator does not support generating year before the year 0.');
+    }
+}
 
+export function getCurrentYear() {
+    return new Date().getFullYear();
+}
 
+export function is53WeekISOYear(year) {
+    const p = y => ((y + Math.floor(y / 4)) - Math.floor(y / 100)) + Math.floor(y / 400);
 
+    return p(year) % 7 === 4 || p(year - 1) % 7 === 3;
+}
 
+export function addDays(days, date) {
+    const result = new Date(date);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>An array of namespaces.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="has"><span class="type-signature"></span>has<span class="signature">(namespace)</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="datastore_BaseStore.js.html">datastore/BaseStore.js</a>, <a href="datastore_BaseStore.js.html#line78">line 78</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="module-datastore.BaseStore.html#has">module:datastore.BaseStore#has</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Convenience method to check if a namespace exists on the server.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>namespace</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Namespace to check.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>True if namespace exists, false otherwise.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;boolean></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-    
-
-    
-
-    
-</article>
+    result.setDate(result.getDate() + days);
 
-</section>
+    return result;
+}
+
+export function addMonths(months, date) {
+    const result = new Date(date);
+
+    result.setMonth(date.getMonth() + months);
+
+    return result;
+}
+
+export function subtractDays(days, date) {
+    return addDays(-days, date);
+}
+
+export function getFirstDayInFirstISOWeekForYear(year) {
+    // The first ISO week of the year always contains 4th January. We can use this as a pointer to start the first week.
+    let startDate = new Date(year, 0, 4);
+
+    // January 4th might not be at the start of the week. Therefore we rewind to the start of the week.
+    if (startDate.getDay() === 0) {
+        startDate = subtractDays(6, startDate);
+        // If January 4th is on a Sunday we'll revert back 6 days
+    } else {
+        // We'll revert back the current day number of days - 1 (Due to the days being 0 indexed with 0 being Sunday)
+        const daysAfterMonday = startDate.getDay() - 1;
+        startDate = subtractDays(daysAfterMonday, startDate);
+    }
+
+    return startDate;
+}
+
+export function getLastDayOfTheWeekForFirstDayOfTheWeek(startDate) {
+    const endDate = new Date(startDate);
+
+    endDate.setDate(endDate.getDate() + 6);
+
+    return endDate;
+}
+
+export function getMonthNamesForLocale(locale) {
+    const monthNames = [];
+
+    for (let i = 0; i &lt; 12; i += 1) {
+        const monthName = new Date(2000, i, 1).toLocaleDateString(locale, { month: 'long' });
+        monthNames.push(monthName);
+    }
+
+    return monthNames;
+}
+
+export function getLastDateOfMonth(year, month) {
+    return new Date(new Date(year, month + 1).setDate(0));
+}
+
+export function getFirstDateOfQuarter(year, quarter) {
+    const startMonth = (quarter - 1) * 3;
+    return new Date(year, startMonth);
+}
+
+export function getLastDateOfQuarter(year, quarter) {
+    return new Date(getFirstDateOfQuarter(year, quarter + 1).setDate(0));
+}
+
+const ordTable = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+const ordTableLeap = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
+
+export function getFirstDateOfWeek(year, week) {
+    const isLeapYear = new Date(new Date(year, 2, 1).setDate(0)).getDate() === 29;
+    const ordDiff = isLeapYear ? ordTableLeap : ordTable;
+
+    const correction = ((new Date(year, 0, 4)).getDay() || 7) + 3;
+    const ordDate = (week * 7) + (1 - correction);
+    if (ordDate &lt; 0) {
+        return new Date(year, 0, ordDate);
+    }
+
+    let month = 11;
+    while (ordDate &lt; ordDiff[month]) {
+        month--; // eslint-disable-line
+    }
+
+    return new Date(year, month, ordDate - ordDiff[month]);
+}
+
+/**
+ * This function takes some general instructions for a period and returns a precise period containing
+ * a start date and end date. It corrects for week 1 starting in a previous year and for week 53 in a
+ * 52 week year
+ * It is used by the BiWeekly periodType and all flavors of Weekly PeriodTypes,
+ * such as Weekly, weeklyWednessday, etc.
+ * @param {Object} obj - An object
+ * @param {Number} obj.year - Year
+ * @param {Number} obj.week - Week number between 1-53
+ * @param {String} [obj.locale=en] - The current locale
+ * @param {Number} [obj.weekTypeDiff=0] - The difference between the starting day of the week 
+ * in a given periodType and the first day of the week. This option is being used for different
+ * flavors of weekly period types, such as WeeklyWednesday, WeeklyThursday, etc.
+ * @param {Number} [obj.periodLength=6] - The amount of days until the end date: 6 for weekly 
+ * and 13 for Bikweekly
+ * @returns {Object} - An object containing various properties that can be used to contruct
+ * the final parsed period
+ */
+export const computeWeekBasedPeriod = ({ year, week, locale = 'en', weekTypeDiff = 0, periodLength = 6 }) => {
+    const startDate = addDays(weekTypeDiff, getFirstDateOfWeek(year, week));
+    const monthNames = getMonthNamesForLocale(locale);
+    const startMonth = startDate.getMonth();
+    const startYear = startDate.getFullYear();
+    const startMonthName = monthNames[startMonth];
+    const startDayNum = startDate.getDate();
+
+    if (week === 53 &amp;&amp; startYear !== year) {
+        /* eslint-disable no-param-reassign */
+        week = 1;
+        year = startYear;
+        /* eslint-enable */
+    }
+
+    const endDate = addDays(periodLength, startDate);
+    const endMonth = endDate.getMonth();
+    const endDayNum = endDate.getDate();
+    const endMonthName = monthNames[endMonth];
+
+    return {
+        week,
+        year,
+        startMonthName,
+        startDayNum,
+        endMonthName,
+        endDayNum,
+        startDate: formatAsISODate(startDate),
+        endDate: formatAsISODate(endDate),
+    };
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

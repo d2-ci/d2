@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.computeWeekBasedPeriod = undefined;
 exports.formatAsISODate = formatAsISODate;
 exports.filterFuturePeriods = filterFuturePeriods;
 exports.getYYYYMM = getYYYYMM;
@@ -171,4 +172,45 @@ function getFirstDateOfWeek(year, week) {
 
     return new Date(year, month, ordDate - ordDiff[month]);
 }
+
+var computeWeekBasedPeriod = exports.computeWeekBasedPeriod = function computeWeekBasedPeriod(_ref) {
+    var year = _ref.year,
+        week = _ref.week,
+        _ref$locale = _ref.locale,
+        locale = _ref$locale === undefined ? 'en' : _ref$locale,
+        _ref$weekTypeDiff = _ref.weekTypeDiff,
+        weekTypeDiff = _ref$weekTypeDiff === undefined ? 0 : _ref$weekTypeDiff,
+        _ref$periodLength = _ref.periodLength,
+        periodLength = _ref$periodLength === undefined ? 6 : _ref$periodLength;
+
+    var startDate = addDays(weekTypeDiff, getFirstDateOfWeek(year, week));
+    var monthNames = getMonthNamesForLocale(locale);
+    var startMonth = startDate.getMonth();
+    var startYear = startDate.getFullYear();
+    var startMonthName = monthNames[startMonth];
+    var startDayNum = startDate.getDate();
+
+    if (week === 53 && startYear !== year) {
+        /* eslint-disable no-param-reassign */
+        week = 1;
+        year = startYear;
+        /* eslint-enable */
+    }
+
+    var endDate = addDays(periodLength, startDate);
+    var endMonth = endDate.getMonth();
+    var endDayNum = endDate.getDate();
+    var endMonthName = monthNames[endMonth];
+
+    return {
+        week: week,
+        year: year,
+        startMonthName: startMonthName,
+        startDayNum: startDayNum,
+        endMonthName: endMonthName,
+        endDayNum: endDayNum,
+        startDate: formatAsISODate(startDate),
+        endDate: formatAsISODate(endDate)
+    };
+};
 //# sourceMappingURL=helpers.js.map

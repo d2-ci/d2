@@ -28,47 +28,6 @@ var periodTypeRegex = {
     FinancialOct: /^([0-9]{4})Oct$/ // YYYY"Oct"
 };
 
-var computeWeekBasedPeriod = function computeWeekBasedPeriod(_ref) {
-    var year = _ref.year,
-        week = _ref.week,
-        _ref$locale = _ref.locale,
-        locale = _ref$locale === undefined ? 'en' : _ref$locale,
-        _ref$weekTypeDiff = _ref.weekTypeDiff,
-        weekTypeDiff = _ref$weekTypeDiff === undefined ? 0 : _ref$weekTypeDiff,
-        _ref$periodLength = _ref.periodLength,
-        periodLength = _ref$periodLength === undefined ? 6 : _ref$periodLength;
-
-    var startDate = (0, _helpers.addDays)(weekTypeDiff, (0, _helpers.getFirstDateOfWeek)(year, week));
-    var monthNames = (0, _helpers.getMonthNamesForLocale)(locale);
-    var startMonth = startDate.getMonth();
-    var startYear = startDate.getFullYear();
-    var startMonthName = monthNames[startMonth];
-    var startDayNum = startDate.getDate();
-
-    if (week === 53 && startYear !== year) {
-        /* eslint-disable no-param-reassign */
-        week = 1;
-        year = startYear;
-        /* eslint-enable */
-    }
-
-    var endDate = (0, _helpers.addDays)(periodLength, startDate);
-    var endMonth = endDate.getMonth();
-    var endDayNum = endDate.getDate();
-    var endMonthName = monthNames[endMonth];
-
-    return {
-        week: week,
-        year: year,
-        startMonthName: startMonthName,
-        startDayNum: startDayNum,
-        endMonthName: endMonthName,
-        endDayNum: endDayNum,
-        startDate: (0, _helpers.formatAsISODate)(startDate),
-        endDate: (0, _helpers.formatAsISODate)(endDate)
-    };
-};
-
 /* eslint-disable complexity */
 var weeklyMatcherParser = function weeklyMatcherParser(match) {
     var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en';
@@ -95,7 +54,7 @@ var weeklyMatcherParser = function weeklyMatcherParser(match) {
             break;
     }
 
-    var p = computeWeekBasedPeriod({ year: year, week: week, locale: locale, weekTypeDiff: weekTypeDiff });
+    var p = (0, _helpers.computeWeekBasedPeriod)({ year: year, week: week, locale: locale, weekTypeDiff: weekTypeDiff });
 
     var name = p.startMonthName === p.endMonthName ? p.year + ' W' + p.week + ' ' + p.startMonthName + ' ' + p.startDayNum + ' - ' + p.endDayNum : p.year + ' W' + p.week + ' ' + p.startMonthName + ' ' + p.startDayNum + ' - ' + p.endMonthName + ' ' + p.endDayNum;
 
@@ -146,7 +105,7 @@ var regexMatchToPeriod = {
         }
 
         var week = biWeek * 2 - 1;
-        var p = computeWeekBasedPeriod({ year: year, week: week, locale: locale, periodLength: 13 });
+        var p = (0, _helpers.computeWeekBasedPeriod)({ year: year, week: week, locale: locale, periodLength: 13 });
         biWeek = (p.week + 1) / 2;
 
         var name = p.startMonthName === p.endMonthName ? p.year + ' BiWeek ' + biWeek + ' ' + p.startMonthName + ' ' + p.startDayNum + ' - ' + p.endDayNum : p.year + ' BiWeek ' + biWeek + ' ' + p.startMonthName + ' ' + p.startDayNum + ' - ' + p.endMonthName + ' ' + p.endDayNum;

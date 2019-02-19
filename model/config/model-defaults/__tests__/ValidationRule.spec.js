@@ -6,7 +6,7 @@ var _fixtures = _interopRequireDefault(require("../../../../__fixtures__/fixture
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-describe.skip('ValidationRule defaults', function () {
+describe('ValidationRule defaults', function () {
   var validationRule;
   beforeEach(function () {
     var ValidationRuleDefinition = _ModelDefinition.default.createFromSchema(_fixtures.default.get('/api/schemas/validationRule'));

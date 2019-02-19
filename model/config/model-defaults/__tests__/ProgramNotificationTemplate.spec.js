@@ -6,7 +6,7 @@ var _fixtures = _interopRequireDefault(require("../../../../__fixtures__/fixture
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-describe.skip('ProgramNotificationTemplate defaults', function () {
+describe('ProgramNotificationTemplate defaults', function () {
   var programNotificationTemplate;
   beforeEach(function () {
     var ProgramNotificationTemplateDefinition = _ModelDefinition.default.createFromSchema(_fixtures.default.get('/api/schemas/programNotificationTemplate'));

@@ -6,7 +6,7 @@ var _fixtures = _interopRequireDefault(require("../../../../__fixtures__/fixture
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-describe.skip('Program defaults', function () {
+describe('Program defaults', function () {
   var program;
   beforeEach(function () {
     var ProgramDefinition = _ModelDefinition.default.createFromSchema(_fixtures.default.get('/api/schemas/program'));

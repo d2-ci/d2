@@ -23,7 +23,7 @@ var getFuncName = function getFuncName(parameter) {
   return "with".concat(parameter.charAt(0).toUpperCase()).concat(parameter.slice(1));
 };
 
-describe.skip('AnalyticsRequest', function () {
+describe('AnalyticsRequest', function () {
   beforeEach(function () {
     request = new _AnalyticsRequest.default();
     expectedParameters = {};

@@ -25,7 +25,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 jest.mock('../logger/Logger');
 jest.mock('../api/Api');
 jest.mock('../i18n/I18n');
-describe.skip('D2', function () {
+describe('D2', function () {
   var ModelDefinition = function ModelDefinition() {
     this.name = 'dataElement';
   };

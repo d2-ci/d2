@@ -22,7 +22,7 @@ jest.mock('../../ModelDefinitions', function () {
     }
   };
 });
-describe.skip('getJSONForProperties', function () {
+describe('getJSONForProperties', function () {
   describe('for validationRule', function () {
     var validationRuleSchema;
     var validationRuleModelDefinition;

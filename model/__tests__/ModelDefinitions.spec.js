@@ -6,7 +6,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-describe.skip('D2 models', function () {
+describe('D2 models', function () {
   var models;
 
   var ModelDefinition = function ModelDefinition(name, plural) {
@@ -25,7 +25,7 @@ describe.skip('D2 models', function () {
   it('should not be allowed to be called without new', function () {
     expect(function () {
       return (0, _ModelDefinitions.default)();
-    }).toThrowError('Cannot call a class as a function');
+    }).toThrowErrorMatchingSnapshot();
   });
   describe('add method', function () {
     var dataElementModelDefinition;

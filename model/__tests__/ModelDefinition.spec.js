@@ -31,7 +31,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 jest.mock('../ModelCollection');
 jest.mock('../ModelCollectionProperty');
 jest.mock('../Model');
-describe.skip('ModelDefinition', function () {
+describe('ModelDefinition', function () {
   var modelDefinition;
   var mockModelCollectionCreate;
   var mockModelCollectionPropertyCreate;
@@ -49,7 +49,7 @@ describe.skip('ModelDefinition', function () {
   it('should not be allowed to be called without new', function () {
     expect(function () {
       return (0, _ModelDefinition.default)();
-    }).toThrowError('Cannot call a class as a function');
+    }).toThrowErrorMatchingSnapshot();
   });
   it('should create a ModelDefinition object', function () {
     expect(modelDefinition).toBeInstanceOf(_ModelDefinition.default);

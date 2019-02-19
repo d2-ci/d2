@@ -44,7 +44,7 @@ jest.mock('../helpers/json', function () {
     }
   };
 });
-describe.skip('ModelValidations', function () {
+describe('ModelValidations', function () {
   var mockApi;
   var modelValidation;
   beforeEach(function () {
@@ -60,7 +60,7 @@ describe.skip('ModelValidations', function () {
   it('should not be allowed to be called without new', function () {
     expect(function () {
       return (0, _ModelValidation.default)();
-    }).toThrowError('Cannot call a class as a function');
+    }).toThrowErrorMatchingSnapshot();
   });
   describe('getModelValidation', function () {
     it('should return a ModelValidation object', function () {

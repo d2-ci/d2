@@ -26,7 +26,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 jest.mock('../Model');
 jest.mock('../../../src/pager/Pager');
-describe.skip('ModelCollection', function () {
+describe('ModelCollection', function () {
   var mockSchema = {
     singular: 'mock',
     plural: 'mocks'
@@ -113,7 +113,7 @@ describe.skip('ModelCollection', function () {
       it('should not be allowed to be called without new', function () {
         expect(function () {
           return (0, _ModelCollection.default)();
-        }).toThrowError('Cannot call a class as a function');
+        }).toThrowErrorMatchingSnapshot();
       });
     });
     describe('throwIfContainsOtherThanModelObjects', function () {

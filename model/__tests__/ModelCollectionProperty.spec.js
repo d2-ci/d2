@@ -12,7 +12,7 @@ var _ModelCollectionProperty = _interopRequireDefault(require("../ModelCollectio
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-describe.skip('ModelCollectionProperty', function () {
+describe('ModelCollectionProperty', function () {
   // let ModelCollectionProperty;
   var mockParentModel;
   var mockModelDefinition;

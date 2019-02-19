@@ -111,72 +111,68 @@ describe('D2', function () {
     expect(_typeof(d2.getInstance)).toBe('function');
   });
   describe('init', function () {
-    it('should call load on i18n instance', function (done) {
+    it('should call load on i18n instance', function () {
+      expect.assertions(1);
       d2.init(undefined, apiMock);
-      d2.getInstance().then(function () {
+      return d2.getInstance().then(function () {
         expect(i18nMock.load).toHaveBeenCalledTimes(1);
-        done();
-      }).catch(done);
+      });
     });
   });
   describe('config', function () {
     it('should have a default baseUrl in the config', function () {
       expect(d2.config.baseUrl).toBe('/api');
     });
-    it('should use the baseUrl from the pre-init config', function (done) {
+    it('should use the baseUrl from the pre-init config', function () {
       d2.config.baseUrl = '/dhis/api';
+      expect.assertions(1);
       d2.init(undefined, apiMock);
-      d2.getInstance().then(function () {
+      return d2.getInstance().then(function () {
         expect(apiMock.setBaseUrl).toHaveBeenCalledWith('/dhis/api');
-        done();
-      }).catch(done);
+      });
     });
-    it('should let the init() config override the pre-init config', function (done) {
+    it('should let the init() config override the pre-init config', function () {
       d2.config.baseUrl = '/dhis/api';
+      expect.assertions(1);
       d2.init({
         baseUrl: '/demo/api'
       }, apiMock);
-      d2.getInstance().then(function () {
+      return d2.getInstance().then(function () {
         expect(apiMock.setBaseUrl).toHaveBeenCalledWith('/demo/api');
-        done();
-      }).catch(done);
+      });
     });
-    it('should use default headers for requests', function (done) {
+    it('should use default headers for requests', function () {
       d2.config.baseUrl = '/dhis/api';
       d2.config.headers = {
         Authorization: new Buffer('admin:district').toString('base64')
       };
+      expect.assertions(1);
       d2.init({
         baseUrl: '/demo/api'
       }, apiMock);
-      d2.getInstance().then(function () {
+      return d2.getInstance().then(function () {
         expect(apiMock.setDefaultHeaders).toHaveBeenCalledWith({
           Authorization: 'YWRtaW46ZGlzdHJpY3Q='
         });
-        done();
-      }).catch(done);
+      });
     });
-    it('should pass the sources Set as an sources array to the i18n class', function (done) {
+    it('should pass the sources Set as an sources array to the i18n class', function () {
       d2.config.i18n.sources.add('global.properties');
       d2.config.i18n.sources.add('nonglobal.properties');
       d2.config.i18n.sources.add('systemsettings.properties');
+      expect.assertions(1);
       d2.init(undefined, apiMock);
-      d2.getInstance().then(function () {
+      return d2.getInstance().then(function () {
         expect(i18nMock.addSource).toHaveBeenCalledTimes(3);
-        done();
-      }).catch(function (e) {
-        done(e);
       });
     });
-    it('should call addStrings for the pre-init added strings', function (done) {
+    it('should call addStrings for the pre-init added strings', function () {
       d2.config.i18n.strings.add('name');
       d2.config.i18n.strings.add('yes');
+      expect.assertions(1);
       d2.init(undefined, apiMock);
-      d2.getInstance().then(function () {
+      return d2.getInstance().then(function () {
         expect(i18nMock.addStrings).toHaveBeenCalledWith(['name', 'yes']);
-        done();
-      }).catch(function (e) {
-        done(e);
       });
     });
   });
@@ -184,8 +180,9 @@ describe('D2', function () {
     it('should return a promise', function () {
       expect(d2.getInstance()).toBeInstanceOf(Promise);
     });
-    it('should return the d2 instance after init', function (done) {
-      Promise.all([d2.init({
+    it('should return the d2 instance after init', function () {
+      expect.assertions(1);
+      return Promise.all([d2.init({
         baseUrl: '/dhis/api'
       }, apiMock), d2.getInstance()]).then(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 2),
@@ -193,26 +190,26 @@ describe('D2', function () {
             d2FromFactory = _ref2[1];
 
         expect(d2FromInit).toBe(d2FromFactory);
-        done();
-      }).catch(done);
+      });
     });
-    it('should return the same instance on getInstance calls', function (done) {
+    it('should return the same instance on getInstance calls', function () {
       d2.init({
         baseUrl: '/dhis/api'
       }, apiMock);
-      Promise.all([d2.getInstance(), d2.getInstance()]).then(function (_ref3) {
+      expect.assertions(1);
+      return Promise.all([d2.getInstance(), d2.getInstance()]).then(function (_ref3) {
         var _ref4 = _slicedToArray(_ref3, 2),
             firstCallResult = _ref4[0],
             secondCallResult = _ref4[1];
 
         expect(firstCallResult).toBe(secondCallResult);
-        done();
-      }).catch(done);
+      });
     });
-    it('should return a different instance after re-init', function (done) {
+    it('should return a different instance after re-init', function () {
       d2.init(undefined, apiMock);
       var instanceAfterFirstInit = d2.getInstance();
-      instanceAfterFirstInit.then(function (first) {
+      expect.assertions(1);
+      return instanceAfterFirstInit.then(function (first) {
         d2.init({
           baseUrl: '/dhis/api'
         }, apiMock);
@@ -224,8 +221,7 @@ describe('D2', function () {
             second = _ref6[1];
 
         expect(first).not.toBe(second);
-        done();
-      }).catch(done);
+      });
     });
     it('should return a promise when calling getInstance before init', function () {
       expect(d2.getInstance()).toBeInstanceOf(Promise);
@@ -283,24 +279,25 @@ describe('D2', function () {
       expect(loggerMock.error).toHaveBeenCalledWith('Unable to get schemas from the api', '{}', new Error('Failed'));
     });
   });
-  it('should return an object with the api object', function (done) {
-    d2.init({
+  it('should return an object with the api object', function () {
+    expect.assertions(1);
+    return d2.init({
       baseUrl: '/dhis/api'
     }, apiMock).then(function (newD2) {
       expect(newD2.Api.getApi()).toBe(apiMock);
-      done();
-    }).catch(done);
+    });
   });
-  it('should call the api for all startup calls', function (done) {
-    d2.init({
+  it('should call the api for all startup calls', function () {
+    expect.assertions(1);
+    return d2.init({
       baseUrl: '/dhis/api'
     }, apiMock).then(function () {
       expect(apiMock.get).toHaveBeenCalledTimes(7);
-      done();
-    }).catch(done);
+    });
   });
-  it('should query the api for all the attributes', function (done) {
-    d2.init({
+  it('should query the api for all the attributes', function () {
+    expect.assertions(2);
+    return d2.init({
       baseUrl: '/dhis/api'
     }, apiMock).then(function () {
       var attributeCallArgs = apiMock.get.mock.calls[1];
@@ -311,27 +308,26 @@ describe('D2', function () {
         fields: ':all,optionSet[:all,options[:all]]',
         paging: false
       });
-      done();
-    }).catch(done);
+    });
   });
   describe('creation of ModelDefinitions', function () {
-    it('should add the model definitions object to the d2 object', function (done) {
-      d2.init(undefined, apiMock).then(function (newD2) {
-        expect(newD2.models).toBeDefined(); // expect(newD2.models.modelsMockList).to.equal(true);
-
-        done();
-      }).catch(done);
+    it('should add the model definitions object to the d2 object', function () {
+      expect.assertions(1);
+      return d2.init(undefined, apiMock).then(function (newD2) {
+        expect(newD2.models).toBeDefined();
+      });
     });
-    it('should add the ModelDefinitions to the models list', function (done) {
-      d2.init(undefined, apiMock).then(function (newD2) {
+    it('should add the ModelDefinitions to the models list', function () {
+      expect.assertions(1);
+      return d2.init(undefined, apiMock).then(function (newD2) {
         expect(newD2.models.dataElement).toBeDefined();
-        done();
-      }).catch(done);
+      });
     });
   });
   describe('currentUser', function () {
     it('should be available on the d2 object', function () {
       d2.init(undefined, apiMock);
+      expect.assertions(1);
       return d2.getInstance().then(function (newD2) {
         expect(newD2.currentUser).toBeDefined();
       });
@@ -344,6 +340,7 @@ describe('D2', function () {
       d2.init({
         schemas: ['user']
       }, apiMock);
+      expect.assertions(1);
       return d2.getInstance().then(function () {
         expect(apiMock.get).toHaveBeenCalledWith('schemas/user', {
           fields: 'apiEndpoint,name,displayName,authorities,singular,plural,shareable,metadata,klass,' + 'identifiableObject,translatable,' + 'properties[href,writable,collection,collectionName,name,propertyType,persisted,required,min,' + 'max,ordered,unique,constants,owner,itemPropertyType,translationKey,embeddedObject]'
@@ -353,6 +350,7 @@ describe('D2', function () {
   });
   describe('DataStore', function () {
     it('should have a dataStore object on the instance', function () {
+      expect.assertions(1);
       return d2.init(undefined, apiMock).then(function (d2Instance) {
         expect(d2Instance.dataStore).toBeInstanceOf(_DataStore.default);
       });
@@ -364,6 +362,7 @@ describe('D2', function () {
     });
     it('should return an object with the uiLocale', function () {
       apiMock.get = jest.fn().mockReturnValueOnce(Promise.resolve(_fixtures.default.get('/api/userSettings')));
+      expect.assertions(1);
       return d2.getUserSettings(apiMock).then(function (settings) {
         expect(settings.keyUiLocale).toBe('fr');
       });
@@ -372,13 +371,13 @@ describe('D2', function () {
       d2.getUserSettings(apiMock);
       expect(apiMock.get).toBeCalled();
     });
-    it('should use the default base url when the set baseUrl is not valid', function (done) {
+    it('should use the default base url when the set baseUrl is not valid', function () {
       d2.config.baseUrl = undefined;
-      d2.getUserSettings(apiMock).then(function () {
+      expect.assertions(2);
+      return d2.getUserSettings(apiMock).then(function () {
         expect(apiMock.setBaseUrl).not.toBeCalled();
         expect(apiMock.get).toHaveBeenCalledWith('userSettings');
-        done();
-      }).catch(done);
+      });
     });
   });
   describe('getManifest', function () {
@@ -388,24 +387,24 @@ describe('D2', function () {
     it('should return a promise', function () {
       expect(d2.getManifest('manifest.webapp', apiMock)).toBeInstanceOf(Promise);
     });
-    it('should request the manifest.webapp', function (done) {
+    it('should request the manifest.webapp', function () {
       apiMock.get.mockReturnValueOnce(Promise.resolve({}));
-      d2.getManifest('manifest.webapp', apiMock).then(function () {
+      expect.assertions(1);
+      return d2.getManifest('manifest.webapp', apiMock).then(function () {
         expect(apiMock.get).toHaveBeenCalledWith('manifest.webapp');
-        done();
-      }).catch(done);
+      });
     });
-    it('should return the manifest.webapp object', function (done) {
+    it('should return the manifest.webapp object', function () {
       var expectedManifest = {
         name: 'MyApp'
       };
       apiMock.get = jest.fn().mockReturnValueOnce(Promise.resolve(expectedManifest));
-      d2.getManifest('manifest.webapp', apiMock).then(function (manifest) {
+      expect.assertions(1);
+      return d2.getManifest('manifest.webapp', apiMock).then(function (manifest) {
         expect(manifest.name).toBe(expectedManifest.name);
-        done();
-      }).catch(done);
+      });
     });
-    it('should add the getBaseUrl convenience method', function (done) {
+    it('should add the getBaseUrl convenience method', function () {
       var expectedManifest = {
         name: 'MyApp',
         activities: {
@@ -415,10 +414,10 @@ describe('D2', function () {
         }
       };
       apiMock.get = jest.fn().mockReturnValueOnce(Promise.resolve(expectedManifest));
-      d2.getManifest('manifest.webapp', apiMock).then(function (manifest) {
+      expect.assertions(1);
+      return d2.getManifest('manifest.webapp', apiMock).then(function (manifest) {
         expect(manifest.getBaseUrl()).toBe('http://localhost:8080');
-        done();
-      }).catch(done);
+      });
     });
   });
 });

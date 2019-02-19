@@ -57,12 +57,13 @@ describe('Internationalisation (I18n)', function () {
     i18n = new _I18n.default([], mockApi);
     expect(i18n.api).toBe(mockApi);
   });
-  it('getTranslations() should throw an error is translations haven\'t been loaded yet', function (done) {
+  it('getTranslations() should throw an error is translations haven\'t been loaded yet', function () {
+    expect.assertions(1);
+
     try {
       i18n.getTranslation('some_string');
-      done('No error thrown!');
-    } catch (e) {
-      done();
+    } catch (err) {
+      expect(err.message).toMatchSnapshot();
     }
   });
   describe('getI18n', function () {
@@ -126,53 +127,38 @@ describe('Internationalisation (I18n)', function () {
       apiReq = mockApi.request.mockReturnValueOnce(Promise.resolve(mockPropsFile));
       i18n.addStrings(['yes', 'no']);
     });
-    it('should return a promise', function (done) {
-      i18n.load().then(function () {
-        done();
-      }, function (err) {
-        done(err);
-      });
+    it('should return a promise', function () {
+      expect(i18n.load()).toBeInstanceOf(Promise);
     });
-    it('should POST to get untranslated strings', function (done) {
-      i18n.load().then(function () {
-        try {
-          expect(apiGet).toHaveBeenCalledTimes(0);
-          expect(apiPost).toHaveBeenCalledTimes(1);
-          expect(apiReq).toHaveBeenCalledTimes(0);
-          expect(i18n.getTranslation('yes')).toEqual(mockTranslations.yes);
-          done();
-        } catch (e) {
-          done(e);
-        }
-      }, function (err) {
-        done(err);
+    it('should POST to get untranslated strings', function () {
+      expect.assertions(4);
+      return i18n.load().then(function () {
+        expect(apiGet).toHaveBeenCalledTimes(0);
+        expect(apiPost).toHaveBeenCalledTimes(1);
+        expect(apiReq).toHaveBeenCalledTimes(0);
+        expect(i18n.getTranslation('yes')).toEqual(mockTranslations.yes);
       });
     });
     it('should load props files first', function () {
       i18n.addSource('props_file_name');
+      expect.assertions(3);
       return i18n.load().then(function () {
         expect(apiGet).toHaveBeenCalledTimes(0);
         expect(apiPost).toHaveBeenCalledTimes(0);
         expect(apiReq).toHaveBeenCalledTimes(1);
       });
     });
-    it('keeps going if one props file fails', function (done) {
+    it('keeps going if one props file fails', function () {
       i18n.addSource('props_file_one');
       i18n.addSource('props_file_two');
       i18n.addSource('props_file_three');
       apiReq.mockReset();
       apiReq.mockReturnValueOnce(Promise.resolve(mockPropsFile)).mockReturnValueOnce(Promise.reject('404 Fail or something')).mockReturnValueOnce(Promise.resolve(''));
-      i18n.load().then(function () {
-        try {
-          expect(apiGet).toHaveBeenCalledTimes(0);
-          expect(apiPost).toHaveBeenCalledTimes(0);
-          expect(apiReq).toHaveBeenCalledTimes(3);
-          done();
-        } catch (e) {
-          done(e);
-        }
-      }, function (err) {
-        done(err);
+      expect.assertions(3);
+      return i18n.load().then(function () {
+        expect(apiGet).toHaveBeenCalledTimes(0);
+        expect(apiPost).toHaveBeenCalledTimes(0);
+        expect(apiReq).toHaveBeenCalledTimes(3);
       });
     });
     it('chooses strings based on source order', function () {
@@ -184,6 +170,7 @@ describe('Internationalisation (I18n)', function () {
           resolve('result=first priority file\n');
         });
       })).mockReturnValueOnce(Promise.resolve('result=first file to load\n'));
+      expect.assertions(1);
       return i18n.load().then(function () {
         expect(i18n.getTranslation('result')).toEqual('first priority file');
       });
@@ -207,16 +194,12 @@ describe('Internationalisation (I18n)', function () {
       i18n.addStrings(Object.keys(mockTranslations));
     });
     describe('getTranslation()', function () {
-      it('returns the correct translations', function (done) {
-        i18n.load().then(function () {
-          try {
-            Object.keys(mockTranslations).forEach(function (key) {
-              expect(i18n.getTranslation(key)).toEqual(mockTranslations[key]);
-            });
-            done();
-          } catch (e) {
-            done(e);
-          }
+      it('returns the correct translations', function () {
+        expect.assertions(5);
+        return i18n.load().then(function () {
+          Object.keys(mockTranslations).forEach(function (key) {
+            expect(i18n.getTranslation(key)).toEqual(mockTranslations[key]);
+          });
         });
       });
       it('decodes unicode entities from properties files', function () {
@@ -228,18 +211,15 @@ describe('Internationalisation (I18n)', function () {
           expect(i18n.getTranslation('system_settings_in_french')).not.toEqual(mockUnicode);
         });
       });
-      it('returns ** string ** for unknown strings', function (done) {
-        i18n.load().then(function () {
-          try {
-            expect(i18n.getTranslation('string')).toEqual('** string **');
-            done();
-          } catch (e) {
-            done(e);
-          }
+      it('returns ** string ** for unknown strings', function () {
+        expect.assertions(1);
+        return i18n.load().then(function () {
+          expect(i18n.getTranslation('string')).toEqual('** string **');
         });
       });
-      it('replaces $$variable$$ in translations', function (done) {
-        i18n.load().then(function () {
+      it('replaces $$variable$$ in translations', function () {
+        expect.assertions(2);
+        return i18n.load().then(function () {
           var sub1 = i18n.getTranslation('string_with_variable', {
             variable: 'tests'
           });
@@ -248,54 +228,38 @@ describe('Internationalisation (I18n)', function () {
           });
           expect(sub1).toBe('Some times tests are useful');
           expect(sub2).toBe('Some times FUNNY TRANSLATIONS are useful');
-          done();
-        }).catch(done);
+        });
       });
     });
     describe('isTranslated()', function () {
-      it('returns true for translated strings', function (done) {
-        i18n.load().then(function () {
-          try {
-            Object.keys(mockTranslations).forEach(function (key) {
-              expect(i18n.isTranslated(key)).toEqual(true);
-            });
-            done();
-          } catch (e) {
-            done(e);
-          }
+      it('returns true for translated strings', function () {
+        expect.assertions(5);
+        return i18n.load().then(function () {
+          Object.keys(mockTranslations).forEach(function (key) {
+            expect(i18n.isTranslated(key)).toEqual(true);
+          });
         });
       });
-      it('returns false for untranslated strings', function (done) {
-        i18n.load().then(function () {
-          try {
-            expect(i18n.isTranslated('string')).toEqual(false);
-            done();
-          } catch (e) {
-            done(e);
-          }
+      it('returns false for untranslated strings', function () {
+        expect.assertions(1);
+        return i18n.load().then(function () {
+          expect(i18n.isTranslated('string')).toEqual(false);
         });
       });
-      it('totally tilts out if translations haven\'t been loaded yet', function (done) {
-        try {
-          expect(i18n.isTranslated('some random string')).toThrowError(Error);
-          done(new Error('No error thrown'));
-        } catch (e) {
-          done();
-        }
+      it('totally tilts out if translations haven\'t been loaded yet', function () {
+        expect(function () {
+          return i18n.isTranslated('some random string');
+        }).toThrowErrorMatchingSnapshot();
       });
     });
     describe('getUntranslatedStrings()', function () {
       it('returns undefined if translations haven\'t been loaded yet', function () {
         expect(i18n.getUntranslatedStrings()).toEqual(undefined);
       });
-      it('returns an array', function (done) {
-        i18n.load().then(function () {
-          try {
-            expect(i18n.getUntranslatedStrings()).toBeInstanceOf(Array);
-            done();
-          } catch (e) {
-            done(e);
-          }
+      it('returns an array', function () {
+        expect.assertions(1);
+        return i18n.load().then(function () {
+          expect(i18n.getUntranslatedStrings()).toBeInstanceOf(Array);
         });
       });
       it('doesn\'t return translated strings', function () {

@@ -46,12 +46,10 @@ describe('DataStoreNamespace', function () {
       apiMock.get.mockClear();
       apiMock.get.mockReturnValue(Promise.resolve(keys));
     });
-    it('should return an array of keys', function (done) {
-      namespace.getKeys().then(function (res) {
+    it('should return an array of keys', function () {
+      expect.assertions(1);
+      return namespace.getKeys().then(function (res) {
         expect(res).toEqual(keys);
-        done();
-      }).catch(function (e) {
-        return done(e);
       });
     });
     it('should be backwards compatible with getKeys(false), but send request either way', function () {
@@ -60,24 +58,20 @@ describe('DataStoreNamespace', function () {
         expect(apiMock.get).toHaveBeenCalled();
       });
     });
-    it('should call remote api if forceload is true and update internal array', function (done) {
+    it('should call remote api if forceload is true and update internal array', function () {
       apiMock.get.mockReturnValueOnce(Promise.resolve(refreshedKeys));
-      namespace.getKeys(true).then(function (res) {
+      expect.assertions(3);
+      return namespace.getKeys(true).then(function (res) {
         expect(res).toEqual(refreshedKeys);
         expect(namespace.keys).toEqual(refreshedKeys);
         expect(apiMock.get).toBeCalledWith('dataStore/DHIS');
-        done();
-      }).catch(function (e) {
-        return done(e);
       });
     });
-    it('should throw an error when there is no response', function (done) {
+    it('should throw an error when there is no response', function () {
       apiMock.get.mockReturnValueOnce(Promise.resolve({}));
-      return namespace.getKeys(true).then(function () {
-        return done('It did not fail!');
-      }).catch(function (namespaceRes) {
+      expect.assertions(1);
+      return namespace.getKeys(true).catch(function (namespaceRes) {
         expect(namespaceRes.message).toBe('The requested namespace has no keys or does not exist.');
-        done();
       });
     });
   });
@@ -85,20 +79,16 @@ describe('DataStoreNamespace', function () {
     beforeEach(function () {
       apiMock.get.mockReturnValueOnce(Promise.resolve('value'));
     });
-    it('should call API with correct parameters', function (done) {
-      namespace.get('key1').then(function () {
+    it('should call API with correct parameters', function () {
+      expect.assertions(1);
+      return namespace.get('key1').then(function () {
         expect(apiMock.get).toBeCalledWith('dataStore/DHIS/key1');
-        done();
-      }).catch(function (e) {
-        return done(e);
       });
     });
-    it('should return a value', function (done) {
-      namespace.get('key1').then(function (val) {
+    it('should return a value', function () {
+      expect.assertions(1);
+      return namespace.get('key1').then(function (val) {
         expect(val).toBe('value');
-        done();
-      }).catch(function (e) {
-        return done(e);
       });
     });
   });
@@ -116,20 +106,16 @@ describe('DataStoreNamespace', function () {
     beforeEach(function () {
       apiMock.get.mockReturnValueOnce(Promise.resolve(metaObj));
     });
-    it('should retrieve an object with metaData', function (done) {
-      namespace.getMetaData(key).then(function (res) {
+    it('should retrieve an object with metaData', function () {
+      expect.assertions(1);
+      return namespace.getMetaData(key).then(function (res) {
         expect(res).toBe(metaObj);
-        done();
-      }).catch(function (e) {
-        return done(e);
       });
     });
-    it('should call api.get() with correct parameters', function (done) {
-      namespace.getMetaData(key).then(function () {
+    it('should call api.get() with correct parameters', function () {
+      expect.assertions(1);
+      return namespace.getMetaData(key).then(function () {
         expect(apiMock.get).toBeCalledWith("dataStore/DHIS/".concat(key, "/metaData"));
-        done();
-      }).catch(function (e) {
-        return done(e);
       });
     });
   });
@@ -139,11 +125,11 @@ describe('DataStoreNamespace', function () {
       jest.spyOn(namespace, 'update');
       jest.spyOn(namespace, 'set');
     });
-    it('should call the api with correct url', function (done) {
+    it('should call the api with correct url', function () {
       var setKey = 'DHIS2';
+      expect.assertions(1);
       return namespace.set(setKey, valueData).then(function () {
         expect(apiMock.post).toBeCalledWith("dataStore/DHIS/".concat(setKey), valueData);
-        done();
       });
     });
     it('should update if the key exists', function () {
@@ -160,14 +146,12 @@ describe('DataStoreNamespace', function () {
         expect(apiMock.post).toBeCalledWith("dataStore/DHIS/".concat(setKey), valueData);
       });
     });
-    it('should add key to internal array', function (done) {
+    it('should add key to internal array', function () {
       var arr = namespace.keys;
       var key = 'key';
-      namespace.set('key', valueData).then(function () {
+      expect.assertions(1);
+      return namespace.set('key', valueData).then(function () {
         expect(namespace.keys).toEqual(arr.concat(key));
-        done();
-      }).catch(function (e) {
-        return done(e);
       });
     });
     it('should work with encrypt = true',
@@ -200,29 +184,23 @@ describe('DataStoreNamespace', function () {
     })));
   });
   describe('delete()', function () {
-    it('should call api.delete() with the correct url', function (done) {
-      namespace.delete('key1').then(function () {
+    it('should call api.delete() with the correct url', function () {
+      expect.assertions(1);
+      return namespace.delete('key1').then(function () {
         expect(apiMock.delete).toBeCalledWith('dataStore/DHIS/key1');
-        done();
-      }).catch(function (e) {
-        return done(e);
       });
     });
-    it('should delete key from internal array', function (done) {
+    it('should delete key from internal array', function () {
       var orgLen = namespace.keys.length;
-      namespace.delete('key1').then(function () {
+      expect.assertions(1);
+      return namespace.delete('key1').then(function () {
         expect(namespace.keys.length).toBe(orgLen - 1);
-        done();
-      }).catch(function (e) {
-        return done(e);
       });
     });
-    it('should call api.delete() even if the key was not present in the internal array', function (done) {
-      namespace.delete('someInaginaryKeyIJustMadeUp').then(function () {
+    it('should call api.delete() even if the key was not present in the internal array', function () {
+      expect.assertions(1);
+      return namespace.delete('someInaginaryKeyIJustMadeUp').then(function () {
         expect(apiMock.delete).toBeCalledWith('dataStore/DHIS/someInaginaryKeyIJustMadeUp');
-        done();
-      }).catch(function (e) {
-        return done(e);
       });
     });
     it('should throw if not called with a string',
@@ -265,13 +243,11 @@ describe('DataStoreNamespace', function () {
   });
   describe('update()', function () {
     var valueData = 'value';
-    it('should call the api with correct url', function (done) {
+    it('should call the api with correct url', function () {
       var setKey = 'DHIS';
-      namespace.update(setKey, valueData).then(function () {
+      expect.assertions(1);
+      return namespace.update(setKey, valueData).then(function () {
         expect(apiMock.update).toBeCalledWith("dataStore/DHIS/".concat(setKey), valueData);
-        done();
-      }).catch(function (e) {
-        return done(e);
       });
     });
   });

@@ -189,10 +189,12 @@ describe('Pager', function () {
       });
     });
     describe('should throw error when there is no page handler', function () {
-      it('should throw an error when no handler is specified', function (done) {
+      it('should throw an error when no handler is specified', function () {
         pager = new _Pager.default(pagerFixtureOne);
-        pager.getNextPage().then(done).catch(function () {
-          done();
+        expect.assertions(1);
+        return pager.getNextPage().catch(function () {
+          // TODO: useless assertion
+          expect(true).toBe(true);
         });
       });
     });

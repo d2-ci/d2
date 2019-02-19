@@ -190,7 +190,7 @@ describe('ModelValidations', function () {
         }]);
       });
     });
-    it('should return an empty array when the validation passed', function (done) {
+    it('should return an empty array when the validation passed', function () {
       mockApi.post.mockReturnValueOnce(Promise.resolve({
         httpStatus: 'OK',
         httpStatusCode: 200,
@@ -199,10 +199,10 @@ describe('ModelValidations', function () {
           responseType: 'ValidationViolations'
         }
       }));
-      modelValidation.validateAgainstSchema(modelMock).then(function (validationMessages) {
+      expect.assertions(1);
+      return modelValidation.validateAgainstSchema(modelMock).then(function (validationMessages) {
         expect(validationMessages).toEqual([]);
-        done();
-      }).catch(done);
+      });
     });
     it('should throw an error when the server does not return the correct WebMessage format', function () {
       var schemaValidationResult = {

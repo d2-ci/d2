@@ -75,28 +75,28 @@ describe('DataStore', function () {
       beforeEach(function () {
         apiMock.get.mockReturnValueOnce(Promise.reject(['{', '"httpStatus":"Not Found",', '"httpStatusCode":404,', '"status":"ERROR",', '"message":"The namespace \'not-my-namespace\' was not found."', '}'].join('')));
       });
-      it('should throw an error', function (done) {
-        return dataStore.get('not-my-namespace').then(function () {
-          throw new Error('this should have failed');
-        }).catch(function () {
-          return done();
+      it('should throw an error', function () {
+        expect.assertions(1);
+        return dataStore.get('not-my-namespace').catch(function () {
+          // TODO: this test looks like it's just testing the mock
+          expect(true).toBe(true);
         });
       });
     });
   });
   describe('getAll()', function () {
-    it('should return an array of namespaces', function (done) {
+    it('should return an array of namespaces', function () {
       apiMock.get.mockReturnValueOnce(Promise.resolve(namespaces));
-      dataStore.getAll().then(function (namespaceRes) {
+      expect.assertions(1);
+      return dataStore.getAll().then(function (namespaceRes) {
         expect(namespaces).toEqual(namespaceRes);
-        done();
-      }).catch(done);
+      });
     });
-    it('should throw an error when there is no response', function (done) {
+    it('should throw an error when there is no response', function () {
       apiMock.get.mockReturnValueOnce(Promise.resolve(null));
-      return dataStore.getAll().then(done).catch(function (namespaceRes) {
+      expect.assertions(1);
+      return dataStore.getAll().catch(function (namespaceRes) {
         expect(namespaceRes.message).toBe('No namespaces exist.');
-        done();
       });
     });
   });

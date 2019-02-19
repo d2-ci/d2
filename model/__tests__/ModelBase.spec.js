@@ -145,38 +145,34 @@ describe('ModelBase', function () {
         model.save();
         expect(modelDefinition.save).not.toBeCalled();
       });
-      it('should reset dirty to false after save', function (done) {
-        model.save().then(function () {
+      it('should reset dirty to false after save', function () {
+        expect.assertions(1);
+        return model.save().then(function () {
           expect(model.dirty).toBe(false);
-          done();
-        }).catch(function (err) {
-          done(err);
         });
       });
-      it('should reset the DIRTY_PROPERTY_LIST to an empty set after save', function (done) {
-        model.save().then(function () {
+      it('should reset the DIRTY_PROPERTY_LIST to an empty set after save', function () {
+        expect.assertions(1);
+        return model.save().then(function () {
           expect(model[_ModelBase5.DIRTY_PROPERTY_LIST].size).toBe(0);
-          done();
-        }).catch(function (err) {
-          done(err);
         });
       });
-      it('should return a promise that resolves to an empty object when the model is not dirty', function (done) {
+      it('should return a promise that resolves to an empty object when the model is not dirty', function () {
         model.dirty = false;
-        model.save().then(function (result) {
+        expect.assertions(1);
+        return model.save().then(function (result) {
           expect(result).toEqual({});
-          done();
-        }).catch(done);
+        });
       });
-      it('should return rejected promise when the model is not valid', function (done) {
+      it('should return rejected promise when the model is not valid', function () {
         model.validate.mockReturnValue(Promise.resolve({
           status: false
         }));
-        model.save().catch(function (message) {
+        expect.assertions(1);
+        return model.save().catch(function (message) {
           expect(message).toEqual({
             status: false
           });
-          done();
         });
       });
       it('should set the newly created id onto the model', function () {

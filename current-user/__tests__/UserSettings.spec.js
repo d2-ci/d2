@@ -33,28 +33,26 @@ describe('CurrentUser.userSettings', function () {
     it('should be a function', function () {
       expect(userSettings.all).toBeInstanceOf(Function);
     });
-    it('should call the api to get all the userSettings', function (done) {
-      userSettings.all().then(function () {
+    it('should call the api to get all the userSettings', function () {
+      expect.assertions(2);
+      return userSettings.all().then(function () {
         expect(userSettings.api.get).toHaveBeenCalledTimes(1);
         expect(userSettings.api.get.mock.calls[0][0]).toBe('userSettings');
-        done();
       });
     });
-    it('should resolve the promise with the settings', function (done) {
-      userSettings.all().then(function (settings) {
+    it('should resolve the promise with the settings', function () {
+      expect.assertions(1);
+      return userSettings.all().then(function (settings) {
         expect(settings.keyUiLocale).toBe('en');
-        done();
       });
     });
-    it('should cache the current user settings', function (done) {
-      userSettings.all().then(function () {
+    it('should cache the current user settings', function () {
+      expect.assertions(2);
+      return userSettings.all().then(function () {
         return userSettings.all();
       }).then(function () {
         expect(userSettings.api.get).toHaveBeenCalledTimes(1);
         expect(userSettings.settings).toEqual(userSettingsFixture);
-        done();
-      }).catch(function (err) {
-        return done(err);
       });
     });
   });
@@ -69,40 +67,42 @@ describe('CurrentUser.userSettings', function () {
       var result = userSettings.get('keyUiLocale');
       expect(result).toBeInstanceOf(Promise);
     });
-    it('should reject the promise with an error if no key has been specified', function (done) {
-      userSettings.get().catch(function (error) {
+    it('should reject the promise with an error if no key has been specified', function () {
+      expect.assertions(2);
+      return userSettings.get().catch(function (error) {
         expect(error).toBeInstanceOf(TypeError);
         expect(error.message).toBe('A "key" parameter should be specified when calling get() on userSettings');
-      }).then(done);
+      });
     });
     it('should call the api to get the value', function () {
       userSettings.get('keyUiLocale');
       expect(userSettings.api.get).toBeCalledWith('userSettings/keyUiLocale');
     });
-    it('should return the value from the promise', function (done) {
-      userSettings.get('keyUiLocale').then(function (value) {
+    it('should return the value from the promise', function () {
+      expect.assertions(1);
+      return userSettings.get('keyUiLocale').then(function (value) {
         expect(value).toBe('en');
-      }).then(done);
+      });
     });
-    it('should try to transform the response to json if possible', function (done) {
+    it('should try to transform the response to json if possible', function () {
       userSettings.api.get.mockReturnValueOnce(Promise.resolve('{"mydataKey": "myDataValue"}'));
-      userSettings.get('keyUiLocale').then(function (value) {
+      expect.assertions(1);
+      return userSettings.get('keyUiLocale').then(function (value) {
         expect(value).toEqual({
           mydataKey: 'myDataValue'
         });
-      }).then(done);
+      });
     });
-    it('should reject the promise if the value is empty', function (done) {
+    it('should reject the promise if the value is empty', function () {
       userSettings.api.get.mockReturnValueOnce(Promise.resolve(''));
-      userSettings.get('keyThatDefinitelyDoesNotExist').then(function () {
-        done(new Error('Promise resolved'));
-      }).catch(function (error) {
+      expect.assertions(1);
+      return userSettings.get('keyThatDefinitelyDoesNotExist').catch(function (error) {
         expect(error.message).toBe('The requested userSetting has no value or does not exist.');
-        done();
       });
     });
     it('should use the cache', function () {
       userSettings.api.get.mockReturnValueOnce(Promise.resolve(userSettingsFixture));
+      expect.assertions(2);
       return userSettings.all().then(function () {
         return userSettings.get('keyUiLocale');
       }).then(function (value) {
@@ -112,6 +112,7 @@ describe('CurrentUser.userSettings', function () {
     });
     it('should also return a promise when serving cached values', function () {
       userSettings.api.get.mockReturnValueOnce(Promise.resolve(userSettingsFixture));
+      expect.assertions(1);
       return userSettings.all().then(function () {
         expect(userSettings.get('keyUiLocale')).toBeInstanceOf(Promise);
       });

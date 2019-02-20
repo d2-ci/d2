@@ -16,6 +16,7 @@ var periodTypeRegex = {
     WeeklyThursday: /^([0-9]{4})(Thu)W([0-9]{1,2})$/, // YYYY"ThuW"[1-53]
     WeeklySaturday: /^([0-9]{4})(Sat)W([0-9]{1,2})$/, // YYYY"SatW"[1-53]
     WeeklySunday: /^([0-9]{4})(Sun)W([0-9]{1,2})$/, // YYYY"SunW"[1-53]
+    BiWeekly: /^([0-9]{4})BiW([0-9]{1,2})$/, // YYYY"BiW"[1-27]
     Monthly: /^([0-9]{4})([0-9]{2})$/, // YYYYMM
     BiMonthly: /^([0-9]{4})([0-9]{2})B$/, // YYYY0[1-6]"B"
     Quarterly: /^([0-9]{4})Q([1234])$/, // YYYY"Q"[1-4]
@@ -34,11 +35,10 @@ var weeklyMatcherParser = function weeklyMatcherParser(match) {
     var year = parseInt(match[1], 10);
     var weekType = match[2];
     var week = parseInt(match[3], 10);
+
     if (week < 1 || week > 53) {
         throw new Error('Invalid week number');
     }
-
-    var monthNames = (0, _helpers.getMonthNamesForLocale)(locale);
 
     var weekTypeDiff = 0;
     switch (weekType) {
@@ -54,30 +54,15 @@ var weeklyMatcherParser = function weeklyMatcherParser(match) {
             break;
     }
 
-    var startDate = (0, _helpers.addDays)(weekTypeDiff, (0, _helpers.getFirstDateOfWeek)(year, week));
-    var startMonth = startDate.getMonth();
-    var startYear = startDate.getFullYear();
-    var startMonthName = monthNames[startMonth];
-    var startDayNum = startDate.getDate();
+    var p = (0, _helpers.computeWeekBasedPeriod)({ year: year, week: week, locale: locale, weekTypeDiff: weekTypeDiff });
 
-    if (week === 53 && startYear !== year) {
-        week = 1;
-        year = startYear;
-    }
-    var id = '' + year + weekType + 'W' + week;
-
-    var endDate = (0, _helpers.addDays)(6, startDate);
-    var endMonth = endDate.getMonth();
-    var endDayNum = endDate.getDate();
-    var endMonthName = monthNames[endMonth];
-
-    var name = startMonth === endMonth ? year + ' W' + week + ' ' + startMonthName + ' ' + startDayNum + ' - ' + endDayNum : year + ' W' + week + ' ' + startMonthName + ' ' + startDayNum + ' - ' + endMonthName + ' ' + endDayNum;
+    var name = p.startMonthName === p.endMonthName ? p.year + ' W' + p.week + ' ' + p.startMonthName + ' ' + p.startDayNum + ' - ' + p.endDayNum : p.year + ' W' + p.week + ' ' + p.startMonthName + ' ' + p.startDayNum + ' - ' + p.endMonthName + ' ' + p.endDayNum;
 
     return {
-        id: id,
+        id: '' + p.year + weekType + 'W' + p.week,
         name: name,
-        startDate: (0, _helpers.formatAsISODate)(startDate),
-        endDate: (0, _helpers.formatAsISODate)(endDate)
+        startDate: p.startDate,
+        endDate: p.endDate
     };
 };
 
@@ -109,6 +94,29 @@ var regexMatchToPeriod = {
     WeeklyThursday: weeklyMatcherParser,
     WeeklySaturday: weeklyMatcherParser,
     WeeklySunday: weeklyMatcherParser,
+    BiWeekly: function BiWeekly(match) {
+        var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en';
+
+        var year = parseInt(match[1], 10);
+        var biWeek = parseInt(match[2], 10);
+
+        if (biWeek < 1 || biWeek > 27) {
+            throw new Error('Invalid BiWeek number');
+        }
+
+        var week = biWeek * 2 - 1;
+        var p = (0, _helpers.computeWeekBasedPeriod)({ year: year, week: week, locale: locale, periodLength: 13 });
+        biWeek = (p.week + 1) / 2;
+
+        var name = p.startMonthName === p.endMonthName ? p.year + ' BiWeek ' + biWeek + ' ' + p.startMonthName + ' ' + p.startDayNum + ' - ' + p.endDayNum : p.year + ' BiWeek ' + biWeek + ' ' + p.startMonthName + ' ' + p.startDayNum + ' - ' + p.endMonthName + ' ' + p.endDayNum;
+
+        return {
+            id: p.year + 'BiW' + biWeek,
+            name: name,
+            startDate: p.startDate,
+            endDate: p.endDate
+        };
+    },
     Monthly: function Monthly(match) {
         var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en';
 

@@ -144,7 +144,7 @@ describe('D2', function () {
     it('should use default headers for requests', function () {
       d2.config.baseUrl = '/dhis/api';
       d2.config.headers = {
-        Authorization: new Buffer('admin:district').toString('base64')
+        Authorization: Buffer.from('admin:district').toString('base64')
       };
       expect.assertions(1);
       d2.init({

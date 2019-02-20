@@ -192,7 +192,7 @@ describe('System.configuration', function () {
       it('should throw an error when asked for an unknown config option', function () {
         expect.assertions(1);
         return configuration.get('someRandomOptionThatDoesntExist').catch(function (err) {
-          expect(err.message).toMatchSnapshot();
+          expect(err).toMatchSnapshot();
         });
       });
     });
@@ -200,7 +200,7 @@ describe('System.configuration', function () {
       it('should not be able to change the systemId', function () {
         expect.assertions(1);
         return configuration.set('systemId', 'my-random-system-id').catch(function (err) {
-          expect(err.message).toMatchSnapshot();
+          expect(err).toMatchSnapshot();
         });
       });
       it('should not attempt to change unknown settings', function () {

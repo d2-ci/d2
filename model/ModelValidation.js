@@ -21,11 +21,21 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function extractValidationViolations(webmessage) {
+  if (webmessage.response && webmessage.response.errorReports) {
+    return webmessage.response.errorReports;
+  }
+
+  var error = new Error('Response was not a WebMessage with the expected format');
+  return Promise.reject(error);
+}
 /**
  * Handles validation of Model objects based on their modelDefinition.
  *
  * @memberof module:model
  */
+
+
 var ModelValidation =
 /*#__PURE__*/
 function () {
@@ -63,14 +73,6 @@ function () {
       // eslint-disable-line class-methods-use-this
       if (!(model && model.modelDefinition && model.modelDefinition.name)) {
         return Promise.reject('model.modelDefinition.name can not be found');
-      }
-
-      function extractValidationViolations(webmessage) {
-        if (webmessage.response && webmessage.response.errorReports) {
-          return webmessage.response.errorReports;
-        }
-
-        throw new Error('Response was not a WebMessage with the expected format');
       }
 
       var url = "schemas/".concat(model.modelDefinition.name); // TODO: The function getOwnedPropertyJSON should probably not be exposed, perhaps we could have a getJSONForModel(ownedPropertiesOnly=true) method.

@@ -138,19 +138,19 @@ describe('Pager', function () {
       it('should be a method on the collection', function () {
         expect(pager.getPreviousPage).toBeInstanceOf(Function);
       });
-      it('should return a promise', function () {
-        expect(pager.getPreviousPage()).toBeInstanceOf(Promise);
-      });
       it('should ask for the previous page if the prevPage property is set', function () {
         pager.page = 2;
         pager.prevPage = 'http://url.to.the.next.page';
-        pager.getPreviousPage();
-        expect(modelDefinition.list).toBeCalled();
+        expect.assertions(1);
+        return pager.getPreviousPage().then(function () {
+          expect(modelDefinition.list).toBeCalled();
+        });
       });
       it('should not ask for a new list if there is no previous page', function () {
         expect(modelDefinition.list).not.toHaveBeenCalled();
       });
       it('should return a rejected promise if there are no more previous pages', function () {
+        expect.assertions(1);
         return pager.getPreviousPage().catch(function (message) {
           expect(message).toBe('There is no previous page for this collection');
         });
@@ -158,9 +158,11 @@ describe('Pager', function () {
       it('should call the list method with the current page number - 1', function () {
         pager.page = 3;
         pager.prevPage = 'http://url.to.the.next.page';
-        pager.getPreviousPage();
-        expect(modelDefinition.list).toBeCalledWith({
-          page: 2
+        expect.assertions(1);
+        return pager.getPreviousPage().then(function () {
+          expect(modelDefinition.list).toBeCalledWith({
+            page: 2
+          });
         });
       });
     });

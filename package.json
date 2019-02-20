@@ -75,6 +75,9 @@
     ],
     "testPathIgnorePatterns": [
       ".*\\.e2e\\.jsx?$"
+    ],
+    "setupFiles": [
+      "<rootDir>/test/setup.js"
     ]
   },
   "private": false

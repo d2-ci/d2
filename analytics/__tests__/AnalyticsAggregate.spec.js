@@ -28,7 +28,7 @@ describe('Analytics.aggregate', function () {
   it('should not be allowed to be called without new', function () {
     expect(function () {
       return (0, _AnalyticsAggregate.default)();
-    }).toThrowErrorMatchingSnapshot(); // eslint-disable-line new-cap
+    }).toThrowErrorMatchingSnapshot();
   });
   it('should add the mockApi onto the AnalyticsAggregate instance', function () {
     expect(aggregate.api).toBe(mockApi);

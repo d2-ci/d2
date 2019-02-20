@@ -32,7 +32,7 @@ describe('AnalyticsRequest', function () {
     it('should not be allowed to be called without new', function () {
       expect(function () {
         return (0, _AnalyticsRequest.default)();
-      }).toThrowErrorMatchingSnapshot(); // eslint-disable-line new-cap
+      }).toThrowErrorMatchingSnapshot();
     });
     it('should initialize properties', function () {
       expect(request.parameters).toEqual({});

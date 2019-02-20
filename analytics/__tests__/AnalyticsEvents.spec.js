@@ -27,7 +27,7 @@ describe('analytics.events', function () {
   it('should not be allowed to be called without new', function () {
     expect(function () {
       return (0, _AnalyticsEvents.default)();
-    }).toThrowErrorMatchingSnapshot(); // eslint-disable-line new-cap
+    }).toThrowErrorMatchingSnapshot();
   });
   it('should add the mockApi onto the Analyticsevents instance', function () {
     expect(events.api).toBe(mockApi);

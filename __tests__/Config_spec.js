@@ -28,7 +28,7 @@ describe('Config', function () {
   it('should not be allowed to call as function', function () {
     expect(function () {
       return (0, _config.default)();
-    }).toThrowError(); // eslint-disable-line
+    }).toThrowError();
   });
   describe('processConfigForD2', function () {
     it('should set the baseUrl on the api object', function () {

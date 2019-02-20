@@ -21,7 +21,7 @@ describe('CurrentUser.userSettings', function () {
   it('should not be allowed to be called without new', function () {
     expect(function () {
       return (0, _UserSettings.default)();
-    }).toThrowErrorMatchingSnapshot(); // eslint-disable-line
+    }).toThrowErrorMatchingSnapshot();
   });
   it('should set an instance of MockApi onto the UserSettings instance', function () {
     expect(userSettings.api).toBe(_Api.default.getApi());

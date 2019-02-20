@@ -17,7 +17,7 @@ describe('AnalyticsResponse', function () {
     it('should not be allowed to be called without new', function () {
       expect(function () {
         return (0, _AnalyticsResponse.default)();
-      }).toThrowErrorMatchingSnapshot(); // eslint-disable-line new-cap
+      }).toThrowErrorMatchingSnapshot();
     });
     it('should set the response when passed as argument', function () {
       expect(response.response).toEqual(fixture);

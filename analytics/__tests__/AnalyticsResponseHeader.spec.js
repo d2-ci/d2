@@ -24,7 +24,7 @@ describe('AnalyticsResponseHeader', function () {
     it('should not be allowed to be called without new', function () {
       expect(function () {
         return (0, _AnalyticsResponseHeader.default)();
-      }).toThrowErrorMatchingSnapshot(); // eslint-disable-line new-cap
+      }).toThrowErrorMatchingSnapshot();
     });
     it('should initialize properties', function () {
       expect(responseHeader.isPrefix).toEqual(flags.isPrefix);

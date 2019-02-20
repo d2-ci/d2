@@ -62,7 +62,7 @@ describe('Api', function () {
   it('should not be allowed to be called without new', function () {
     expect(function () {
       return (0, _Api.default)(fetchMock);
-    }).toThrowErrorMatchingSnapshot(); // eslint-disable-line
+    }).toThrowErrorMatchingSnapshot();
   });
   describe('when fetch is not supported', function () {
     var wasFetch;

@@ -33,7 +33,7 @@ describe('Internationalisation (I18n)', function () {
   it('should not be allowed to be called without new', function () {
     expect(function () {
       return (0, _I18n.default)();
-    }).toThrowErrorMatchingSnapshot(); // eslint-disable-line
+    }).toThrowErrorMatchingSnapshot();
   });
   it('should set an instance of Api onto the SystemConfiguration instance', function () {
     expect(i18n.api).toBe(mockApi);

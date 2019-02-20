@@ -16,7 +16,7 @@ describe('constructor', function () {
   it('should not be allowed to be called without new', function () {
     expect(function () {
       return (0, _AnalyticsBase.default)();
-    }).toThrowErrorMatchingSnapshot(); // eslint-disable-line new-cap
+    }).toThrowErrorMatchingSnapshot();
   });
   it('should add the mockApi onto the AnalyticsBase instance', function () {
     var mockApi = _Api.default.getApi();

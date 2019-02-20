@@ -161,7 +161,7 @@ function getFirstDateOfWeek(year, week) {
   var month = 11;
 
   while (ordDate < ordDiff[month]) {
-    month--; // eslint-disable-line
+    month--; // eslint-disable-line no-plusplus
   }
 
   return new Date(year, month, ordDate - ordDiff[month]);

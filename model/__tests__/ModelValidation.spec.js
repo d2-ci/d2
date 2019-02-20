@@ -97,10 +97,6 @@ describe('ModelValidations', function () {
     it('should be a function', function () {
       expect(modelValidation.validateAgainstSchema).toBeInstanceOf(Function);
     });
-    it('should return a promise', function () {
-      mockApi.post.mockReturnValueOnce(Promise.resolve({}));
-      expect(modelValidation.validateAgainstSchema(modelMock)).toBeInstanceOf(Promise);
-    });
     it('should return a rejected promise if the model.modelDefinition.name is not present', function () {
       modelValidation.validateAgainstSchema().catch(function (message) {
         expect(message).toBe('model.modelDefinition.name can not be found');

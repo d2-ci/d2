@@ -4,7 +4,7 @@
   "description": "Javascript library for DHIS2",
   "main": "d2.js",
   "scripts": {
-    "babel": "babel src --out-dir build --source-maps --ignore __tests__,__fixtures__,__mocks__",
+    "babel": "babel src --out-dir build --source-maps --ignore '/**/__tests__/*','/**/__mocks__/*','/**/__fixtures__/*'",
     "build": "npm run clean && npm run babel && npm run build:dev && npm run build:prod",
     "build:prod": "webpack --config webpack.config.prod.js --mode production",
     "build:dev": "webpack --config webpack.config.dev.js --mode development",
@@ -46,6 +46,7 @@
     "babel-loader": "^8.0.5",
     "codeclimate-test-reporter": "^0.4.1",
     "docdash": "^1.0.3",
+    "eslint": "^4.19.1",
     "eslint-config-dhis2": "^3.0.2",
     "form-data": "^2.3.3",
     "jest": "^24.1.0",

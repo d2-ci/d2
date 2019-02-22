@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filters - Documentation</title>
+    <title>period/helpers.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,1118 +27,244 @@
 
 <div id="main">
     
-    <h1 class="page-title">Filters</h1>
+    <h1 class="page-title">period/helpers.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
-    
-        <h2>
-            <span class="ancestors"><a href="module-model.html">model</a>.</span>
-        
-        Filters
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    <h4 class="name" id="Filters"><span class="type-signature"></span>new Filters<span class="signature">(modelDefinition, filters)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model_Filters.js.html">model/Filters.js</a>, <a href="model_Filters.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Collection class that contains filters that are to be applied when loading Model objects from the api.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>modelDefinition</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">ModelDefinition</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The ModelDefinition for which this Filters object should create filters.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>filters</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Filter></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>A list of Filter objects</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".getFilters"><span class="type-signature">(static) </span>getFilters<span class="signature">(modelDefinition, priorFilters)</span><span class="type-signature"> &rarr; {Filters}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model_Filters.js.html">model/Filters.js</a>, <a href="model_Filters.js.html#line128">line 128</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Factory method to create a Filters object.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>modelDefinition</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">ModelDefinition</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The modelDefinition that the filters should apply to.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>priorFilters</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Filter></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>List of previously applied filters that the new filter list should start with.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>A Filters object for the given modelDefinition.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Filters</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getFilterList"><span class="type-signature"></span>getFilterList<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;Filter>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model_Filters.js.html">model/Filters.js</a>, <a href="model_Filters.js.html#line97">line 97</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Get a list of Filter objects that are in applied in this Filters instance</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>The list of Filter objects.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;Filter></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getFilters"><span class="type-signature"></span>getFilters<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model_Filters.js.html">model/Filters.js</a>, <a href="model_Filters.js.html#line88">line 88</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <dt class="important tag-deprecated">Deprecated:</dt><dd><ul class="dummy"><li>Deprecated since 2.28, use getQueryFilterValues instead.</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;string></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getQueryFilterValues"><span class="type-signature"></span>getQueryFilterValues<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model_Filters.js.html">model/Filters.js</a>, <a href="model_Filters.js.html#line80">line 80</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Get an array of DHIS2 metadata filter values to send to the API.</p>
-<p>This will return ['id:eq:UYXOT4A7JMI', 'name:like:ANC'] for filters created as follows
-dataElement
- .filter().on('id').equals(UYXOT4A7JMI)
- .filter().on('name').like('ANC')</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>A list of query param values to be used with the filter key.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;string></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="list"><span class="type-signature"></span>list<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model_Filters.js.html">model/Filters.js</a>, <a href="model_Filters.js.html#line66">line 66</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <dt class="important tag-deprecated">Deprecated:</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Proxy the list() call on the filters object.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="logicMode"><span class="type-signature"></span>logicMode<span class="signature">(junction)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model_Filters.js.html">model/Filters.js</a>, <a href="model_Filters.js.html#line115">line 115</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://docs.dhis2.org/master/en/developer/html/webapi_metadata_object_filter.html">Object filter Docs </a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>The logic mode to use on the filters.</p>
-<p>Default behavior is AND.
-Note that the logic will be used across all the filters, which
-means with OR, results will be returned when any of the filter match.
-It MUST be called last on the chain of filters when called
-through modelDefinition.filter().</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>d2.programs.filter().on('name').like('Child')
-.filter().logicMode('OR').on('code').equals('Child')</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>junction</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The logic operator to use. One of ['OR', 'AND'];</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="on"><span class="type-signature"></span>on<span class="signature">(propertyName)</span><span class="type-signature"> &rarr; {Filter}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model_Filters.js.html">model/Filters.js</a>, <a href="model_Filters.js.html#line38">line 38</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Shortcut for triggering the creation of a Filter. This is the function that is triggered when creating new
-filters on a ModelDefinition. The Filter will receive a callback that can be used to add the finalized filter
-to the list of filters.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>propertyName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The property that the filter should apply to. (e.g. <code>name</code>)</p></td>
-        </tr>
-
     
-    </tbody>
-</table>
-
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { isInteger } from '../lib/check';
 
+export function formatAsISODate(date) {
+    if (!(date instanceof Date)) {
+        throw new Error('formatAsISODate(date) only accepts Date objects');
+    }
 
+    const y = date.getFullYear();
+    const m = `0${date.getMonth() + 1}`.substr(-2);
+    const d = `0${date.getDate()}`.substr(-2);
+    return `${y}-${m}-${d}`;
+}
 
+export function filterFuturePeriods(periods) {
+    const array = [];
+    const now = new Date();
 
+    for (let i = 0; i &lt; periods.length; i++) {
+        if (new Date(periods[i].startDate) &lt;= now) {
+            array.push(periods[i]);
+        }
+    }
 
+    return array;
+}
 
+export function getYYYYMM(date) {
+    const y = date.getFullYear();
+    let m = `${date.getMonth() + 1}`;
+    m = `0${m}`.substr(-2);
+    return y + m;
+}
 
+export function getBiMonthlyId(date) {
+    const y = date.getFullYear();
+    const m = `0${Math.floor(date.getMonth() / 2) + 1}`.substr(-2);
+    return `${y + m}B`;
+}
 
-<h5>Returns:</h5>
+export function validateIfValueIsInteger(year) {
+    if (!isInteger(year)) {
+        throw new Error(
+            'Generator should be called with an integer to identify the year.' +
+            ' Perhaps you passed a Date object?',
+        );
+    }
 
-        
-<div class="param-desc">
-    <p>The created filter object for <code>propertyName</code>.</p>
-</div>
+    if (year &lt; 0) {
+        throw new Error('Generator does not support generating year before the year 0.');
+    }
+}
 
+export function getCurrentYear() {
+    return new Date().getFullYear();
+}
 
+export function is53WeekISOYear(year) {
+    const p = y => ((y + Math.floor(y / 4)) - Math.floor(y / 100)) + Math.floor(y / 400);
 
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Filter</span>
+    return p(year) % 7 === 4 || p(year - 1) % 7 === 3;
+}
 
+export function addDays(days, date) {
+    const result = new Date(date);
 
-    </dd>
-</dl>
-
-    
-
-
-        
-    
-
-    
-
-    
-</article>
+    result.setDate(result.getDate() + days);
 
-</section>
+    return result;
+}
+
+export function addMonths(months, date) {
+    const result = new Date(date);
+
+    result.setMonth(date.getMonth() + months);
+
+    return result;
+}
+
+export function subtractDays(days, date) {
+    return addDays(-days, date);
+}
+
+export function getFirstDayInFirstISOWeekForYear(year) {
+    // The first ISO week of the year always contains 4th January. We can use this as a pointer to start the first week.
+    let startDate = new Date(year, 0, 4);
+
+    // January 4th might not be at the start of the week. Therefore we rewind to the start of the week.
+    if (startDate.getDay() === 0) {
+        startDate = subtractDays(6, startDate);
+        // If January 4th is on a Sunday we'll revert back 6 days
+    } else {
+        // We'll revert back the current day number of days - 1 (Due to the days being 0 indexed with 0 being Sunday)
+        const daysAfterMonday = startDate.getDay() - 1;
+        startDate = subtractDays(daysAfterMonday, startDate);
+    }
+
+    return startDate;
+}
+
+export function getLastDayOfTheWeekForFirstDayOfTheWeek(startDate) {
+    const endDate = new Date(startDate);
+
+    endDate.setDate(endDate.getDate() + 6);
+
+    return endDate;
+}
+
+export function getMonthNamesForLocale(locale) {
+    const monthNames = [];
+
+    for (let i = 0; i &lt; 12; i += 1) {
+        const monthName = new Date(2000, i, 1).toLocaleDateString(locale, { month: 'long' });
+        monthNames.push(monthName);
+    }
+
+    return monthNames;
+}
+
+export function getLastDateOfMonth(year, month) {
+    return new Date(new Date(year, month + 1).setDate(0));
+}
+
+export function getFirstDateOfQuarter(year, quarter) {
+    const startMonth = (quarter - 1) * 3;
+    return new Date(year, startMonth);
+}
+
+export function getLastDateOfQuarter(year, quarter) {
+    return new Date(getFirstDateOfQuarter(year, quarter + 1).setDate(0));
+}
+
+const ordTable = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+const ordTableLeap = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
+
+export function getFirstDateOfWeek(year, week) {
+    const isLeapYear = new Date(new Date(year, 2, 1).setDate(0)).getDate() === 29;
+    const ordDiff = isLeapYear ? ordTableLeap : ordTable;
+
+    const correction = ((new Date(year, 0, 4)).getDay() || 7) + 3;
+    const ordDate = (week * 7) + (1 - correction);
+    if (ordDate &lt; 0) {
+        return new Date(year, 0, ordDate);
+    }
+
+    let month = 11;
+    while (ordDate &lt; ordDiff[month]) {
+        month--; // eslint-disable-line no-plusplus
+    }
+
+    return new Date(year, month, ordDate - ordDiff[month]);
+}
+
+/**
+ * This function takes some general instructions for a period and returns a precise period containing
+ * a start date and end date. It corrects for week 1 starting in a previous year and for week 53 in a
+ * 52 week year
+ * It is used by the BiWeekly periodType and all flavors of Weekly PeriodTypes,
+ * such as Weekly, weeklyWednessday, etc.
+ * @param {Object} obj - An object
+ * @param {Number} obj.year - Year
+ * @param {Number} obj.week - Week number between 1-53
+ * @param {String} [obj.locale=en] - The current locale
+ * @param {Number} [obj.weekTypeDiff=0] - The difference between the starting day of the week
+ * in a given periodType and the first day of the week. This option is being used for different
+ * flavors of weekly period types, such as WeeklyWednesday, WeeklyThursday, etc.
+ * @param {Number} [obj.periodLength=6] - The amount of days until the end date: 6 for weekly
+ * and 13 for Bikweekly
+ * @returns {Object} - An object containing various properties that can be used to contruct
+ * the final parsed period
+ * @example for default scenario
+ * computeWeekBasedPeriod({ year: 2019, week: 12})
+ * // returns:
+ * // {
+ * //     week: 12,
+ * //     year: 2019,
+ * //     startMonthName: 'June',
+ * //     startDayNumber: 3,
+ * //     endDayNumber: 9,
+ * //     startDate: '2019-06-03',
+ * //     endDate: '2019-06-09',
+ * // }
+ * @example for week 53 in 52 week year edge case
+ * computeWeekBasedPeriod({ year: 2016, week: 53})
+ * // returns:
+ * // {
+ * //     week: 1,
+ * //     year: 2017,
+ * //     startMonthName: 'January',
+ * //     startDayNumber: 2,
+ * //     endDayNumber: 8,
+ * //     startDate: '2017-01-02',
+ * //     endDate: '2017-01-08',
+ * // }
+ */
+export const computeWeekBasedPeriod = ({ year, week, locale = 'en', weekTypeDiff = 0, periodLength = 6 }) => {
+    const startDate = addDays(weekTypeDiff, getFirstDateOfWeek(year, week));
+    const monthNames = getMonthNamesForLocale(locale);
+    const startMonth = startDate.getMonth();
+    const startYear = startDate.getFullYear();
+    const startMonthName = monthNames[startMonth];
+    const startDayNum = startDate.getDate();
+
+    if (week === 53 &amp;&amp; startYear !== year) {
+        /* eslint-disable no-param-reassign */
+        week = 1;
+        year = startYear;
+        /* eslint-enable */
+    }
+
+    const endDate = addDays(periodLength, startDate);
+    const endMonth = endDate.getMonth();
+    const endDayNum = endDate.getDate();
+    const endMonthName = monthNames[endMonth];
+
+    return {
+        week,
+        year,
+        startMonthName,
+        startDayNum,
+        endMonthName,
+        endDayNum,
+        startDate: formatAsISODate(startDate),
+        endDate: formatAsISODate(endDate),
+    };
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

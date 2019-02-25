@@ -26,8 +26,7 @@ function extractValidationViolations(webmessage) {
     return webmessage.response.errorReports;
   }
 
-  var error = new Error('Response was not a WebMessage with the expected format');
-  return Promise.reject(error);
+  throw new Error('Response was not a WebMessage with the expected format');
 }
 /**
  * Handles validation of Model objects based on their modelDefinition.

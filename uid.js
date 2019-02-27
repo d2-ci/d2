@@ -1,10 +1,11 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.generateUid = generateUid;
 exports.isValidUid = isValidUid;
+
 /**
  * @module uid
  *
@@ -14,21 +15,16 @@ exports.isValidUid = isValidUid;
  *
  * This module is used to generate and validate DHIS2 uids. A valid DHIS2 uid is a 11 character string which starts with a letter from the ISO basic Latin alphabet.
  */
-
 var abc = 'abcdefghijklmnopqrstuvwxyz';
 var letters = abc.concat(abc.toUpperCase());
-
-var ALLOWED_CHARS = '0123456789' + letters;
-
+var ALLOWED_CHARS = "0123456789".concat(letters);
 var NUMBER_OF_CODEPOINTS = ALLOWED_CHARS.length;
 var CODESIZE = 11;
-
 var CODE_PATTERN = /^[a-zA-Z]{1}[a-zA-Z0-9]{10}$/;
 
 function randomWithMax(max) {
-    return Math.floor(Math.random() * max);
+  return Math.floor(Math.random() * max);
 }
-
 /**
  * Generate a valid DHIS2 uid. A valid DHIS2 uid is a 11 character string which starts with a letter from the ISO basic Latin alphabet.
  *
@@ -39,18 +35,19 @@ function randomWithMax(max) {
  *
  * generateUid();
  */
+
+
 function generateUid() {
-    // First char should be a letter
-    var randomChars = letters.charAt(randomWithMax(letters.length));
+  // First char should be a letter
+  var randomChars = letters.charAt(randomWithMax(letters.length));
 
-    for (var i = 1; i < CODESIZE; i += 1) {
-        randomChars += ALLOWED_CHARS.charAt(randomWithMax(NUMBER_OF_CODEPOINTS));
-    }
+  for (var i = 1; i < CODESIZE; i += 1) {
+    randomChars += ALLOWED_CHARS.charAt(randomWithMax(NUMBER_OF_CODEPOINTS));
+  } // return new String( randomChars );
 
-    // return new String( randomChars );
-    return randomChars;
+
+  return randomChars;
 }
-
 /**
  * Tests whether the given code is valid.
  *
@@ -64,12 +61,14 @@ function generateUid() {
  * isValidUid('0kWynlWMjJR'); // false (Uid can not start with a number)
  * isValidUid('AkWy$lWMjJR'); // false (Uid can only contain alphanumeric characters.
  */
-function isValidUid(code) {
-    if (code == null) {
-        // eslint-disable-line eqeqeq
-        return false;
-    }
 
-    return CODE_PATTERN.test(code);
+
+function isValidUid(code) {
+  if (code == null) {
+    // eslint-disable-line eqeqeq
+    return false;
+  }
+
+  return CODE_PATTERN.test(code);
 }
 //# sourceMappingURL=uid.js.map

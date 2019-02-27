@@ -1,9 +1,8 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
-exports.computeWeekBasedPeriod = undefined;
 exports.formatAsISODate = formatAsISODate;
 exports.filterFuturePeriods = filterFuturePeriods;
 exports.getYYYYMM = getYYYYMM;
@@ -21,158 +20,153 @@ exports.getLastDateOfMonth = getLastDateOfMonth;
 exports.getFirstDateOfQuarter = getFirstDateOfQuarter;
 exports.getLastDateOfQuarter = getLastDateOfQuarter;
 exports.getFirstDateOfWeek = getFirstDateOfWeek;
+exports.computeWeekBasedPeriod = void 0;
 
-var _check = require('../lib/check');
+var _check = require("../lib/check");
 
 function formatAsISODate(date) {
-    if (!(date instanceof Date)) {
-        throw new Error('formatAsISODate(date) only accepts Date objects');
-    }
+  if (!(date instanceof Date)) {
+    throw new Error('formatAsISODate(date) only accepts Date objects');
+  }
 
-    var y = date.getFullYear();
-    var m = ('0' + (date.getMonth() + 1)).substr(-2);
-    var d = ('0' + date.getDate()).substr(-2);
-    return y + '-' + m + '-' + d;
+  var y = date.getFullYear();
+  var m = "0".concat(date.getMonth() + 1).substr(-2);
+  var d = "0".concat(date.getDate()).substr(-2);
+  return "".concat(y, "-").concat(m, "-").concat(d);
 }
 
 function filterFuturePeriods(periods) {
-    var array = [];
-    var now = new Date();
+  var array = [];
+  var now = new Date();
 
-    for (var i = 0; i < periods.length; i++) {
-        if (new Date(periods[i].startDate) <= now) {
-            array.push(periods[i]);
-        }
+  for (var i = 0; i < periods.length; i++) {
+    if (new Date(periods[i].startDate) <= now) {
+      array.push(periods[i]);
     }
+  }
 
-    return array;
+  return array;
 }
 
 function getYYYYMM(date) {
-    var y = date.getFullYear();
-    var m = '' + (date.getMonth() + 1);
-    m = ('0' + m).substr(-2);
-    return y + m;
+  var y = date.getFullYear();
+  var m = "".concat(date.getMonth() + 1);
+  m = "0".concat(m).substr(-2);
+  return y + m;
 }
 
 function getBiMonthlyId(date) {
-    var y = date.getFullYear();
-    var m = ('0' + (Math.floor(date.getMonth() / 2) + 1)).substr(-2);
-    return y + m + 'B';
+  var y = date.getFullYear();
+  var m = "0".concat(Math.floor(date.getMonth() / 2) + 1).substr(-2);
+  return "".concat(y + m, "B");
 }
 
 function validateIfValueIsInteger(year) {
-    if (!(0, _check.isInteger)(year)) {
-        throw new Error('Generator should be called with an integer to identify the year.' + ' Perhaps you passed a Date object?');
-    }
+  if (!(0, _check.isInteger)(year)) {
+    throw new Error('Generator should be called with an integer to identify the year.' + ' Perhaps you passed a Date object?');
+  }
 
-    if (year < 0) {
-        throw new Error('Generator does not support generating year before the year 0.');
-    }
+  if (year < 0) {
+    throw new Error('Generator does not support generating year before the year 0.');
+  }
 }
 
 function getCurrentYear() {
-    return new Date().getFullYear();
+  return new Date().getFullYear();
 }
 
 function is53WeekISOYear(year) {
-    var p = function p(y) {
-        return y + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400);
-    };
+  var p = function p(y) {
+    return y + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400);
+  };
 
-    return p(year) % 7 === 4 || p(year - 1) % 7 === 3;
+  return p(year) % 7 === 4 || p(year - 1) % 7 === 3;
 }
 
 function addDays(days, date) {
-    var result = new Date(date);
-
-    result.setDate(result.getDate() + days);
-
-    return result;
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
 }
 
 function addMonths(months, date) {
-    var result = new Date(date);
-
-    result.setMonth(date.getMonth() + months);
-
-    return result;
+  var result = new Date(date);
+  result.setMonth(date.getMonth() + months);
+  return result;
 }
 
 function subtractDays(days, date) {
-    return addDays(-days, date);
+  return addDays(-days, date);
 }
 
 function getFirstDayInFirstISOWeekForYear(year) {
-    // The first ISO week of the year always contains 4th January. We can use this as a pointer to start the first week.
-    var startDate = new Date(year, 0, 4);
+  // The first ISO week of the year always contains 4th January. We can use this as a pointer to start the first week.
+  var startDate = new Date(year, 0, 4); // January 4th might not be at the start of the week. Therefore we rewind to the start of the week.
 
-    // January 4th might not be at the start of the week. Therefore we rewind to the start of the week.
-    if (startDate.getDay() === 0) {
-        startDate = subtractDays(6, startDate);
-        // If January 4th is on a Sunday we'll revert back 6 days
-    } else {
-        // We'll revert back the current day number of days - 1 (Due to the days being 0 indexed with 0 being Sunday)
-        var daysAfterMonday = startDate.getDay() - 1;
-        startDate = subtractDays(daysAfterMonday, startDate);
-    }
+  if (startDate.getDay() === 0) {
+    startDate = subtractDays(6, startDate); // If January 4th is on a Sunday we'll revert back 6 days
+  } else {
+    // We'll revert back the current day number of days - 1 (Due to the days being 0 indexed with 0 being Sunday)
+    var daysAfterMonday = startDate.getDay() - 1;
+    startDate = subtractDays(daysAfterMonday, startDate);
+  }
 
-    return startDate;
+  return startDate;
 }
 
 function getLastDayOfTheWeekForFirstDayOfTheWeek(startDate) {
-    var endDate = new Date(startDate);
-
-    endDate.setDate(endDate.getDate() + 6);
-
-    return endDate;
+  var endDate = new Date(startDate);
+  endDate.setDate(endDate.getDate() + 6);
+  return endDate;
 }
 
 function getMonthNamesForLocale(locale) {
-    var monthNames = [];
+  var monthNames = [];
 
-    for (var i = 0; i < 12; i += 1) {
-        var monthName = new Date(2000, i, 1).toLocaleDateString(locale, { month: 'long' });
-        monthNames.push(monthName);
-    }
+  for (var i = 0; i < 12; i += 1) {
+    var monthName = new Date(2000, i, 1).toLocaleDateString(locale, {
+      month: 'long'
+    });
+    monthNames.push(monthName);
+  }
 
-    return monthNames;
+  return monthNames;
 }
 
 function getLastDateOfMonth(year, month) {
-    return new Date(new Date(year, month + 1).setDate(0));
+  return new Date(new Date(year, month + 1).setDate(0));
 }
 
 function getFirstDateOfQuarter(year, quarter) {
-    var startMonth = (quarter - 1) * 3;
-    return new Date(year, startMonth);
+  var startMonth = (quarter - 1) * 3;
+  return new Date(year, startMonth);
 }
 
 function getLastDateOfQuarter(year, quarter) {
-    return new Date(getFirstDateOfQuarter(year, quarter + 1).setDate(0));
+  return new Date(getFirstDateOfQuarter(year, quarter + 1).setDate(0));
 }
 
 var ordTable = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
 var ordTableLeap = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
 
 function getFirstDateOfWeek(year, week) {
-    var isLeapYear = new Date(new Date(year, 2, 1).setDate(0)).getDate() === 29;
-    var ordDiff = isLeapYear ? ordTableLeap : ordTable;
+  var isLeapYear = new Date(new Date(year, 2, 1).setDate(0)).getDate() === 29;
+  var ordDiff = isLeapYear ? ordTableLeap : ordTable;
+  var correction = (new Date(year, 0, 4).getDay() || 7) + 3;
+  var ordDate = week * 7 + (1 - correction);
 
-    var correction = (new Date(year, 0, 4).getDay() || 7) + 3;
-    var ordDate = week * 7 + (1 - correction);
-    if (ordDate < 0) {
-        return new Date(year, 0, ordDate);
-    }
+  if (ordDate < 0) {
+    return new Date(year, 0, ordDate);
+  }
 
-    var month = 11;
-    while (ordDate < ordDiff[month]) {
-        month--; // eslint-disable-line
-    }
+  var month = 11;
 
-    return new Date(year, month, ordDate - ordDiff[month]);
+  while (ordDate < ordDiff[month]) {
+    month--; // eslint-disable-line no-plusplus
+  }
+
+  return new Date(year, month, ordDate - ordDiff[month]);
 }
-
 /**
  * This function takes some general instructions for a period and returns a precise period containing
  * a start date and end date. It corrects for week 1 starting in a previous year and for week 53 in a
@@ -183,10 +177,10 @@ function getFirstDateOfWeek(year, week) {
  * @param {Number} obj.year - Year
  * @param {Number} obj.week - Week number between 1-53
  * @param {String} [obj.locale=en] - The current locale
- * @param {Number} [obj.weekTypeDiff=0] - The difference between the starting day of the week 
+ * @param {Number} [obj.weekTypeDiff=0] - The difference between the starting day of the week
  * in a given periodType and the first day of the week. This option is being used for different
  * flavors of weekly period types, such as WeeklyWednesday, WeeklyThursday, etc.
- * @param {Number} [obj.periodLength=6] - The amount of days until the end date: 6 for weekly 
+ * @param {Number} [obj.periodLength=6] - The amount of days until the end date: 6 for weekly
  * and 13 for Bikweekly
  * @returns {Object} - An object containing various properties that can be used to contruct
  * the final parsed period
@@ -215,44 +209,46 @@ function getFirstDateOfWeek(year, week) {
  * //     endDate: '2017-01-08',
  * // }
  */
-var computeWeekBasedPeriod = exports.computeWeekBasedPeriod = function computeWeekBasedPeriod(_ref) {
-    var year = _ref.year,
-        week = _ref.week,
-        _ref$locale = _ref.locale,
-        locale = _ref$locale === undefined ? 'en' : _ref$locale,
-        _ref$weekTypeDiff = _ref.weekTypeDiff,
-        weekTypeDiff = _ref$weekTypeDiff === undefined ? 0 : _ref$weekTypeDiff,
-        _ref$periodLength = _ref.periodLength,
-        periodLength = _ref$periodLength === undefined ? 6 : _ref$periodLength;
 
-    var startDate = addDays(weekTypeDiff, getFirstDateOfWeek(year, week));
-    var monthNames = getMonthNamesForLocale(locale);
-    var startMonth = startDate.getMonth();
-    var startYear = startDate.getFullYear();
-    var startMonthName = monthNames[startMonth];
-    var startDayNum = startDate.getDate();
 
-    if (week === 53 && startYear !== year) {
-        /* eslint-disable no-param-reassign */
-        week = 1;
-        year = startYear;
-        /* eslint-enable */
-    }
+var computeWeekBasedPeriod = function computeWeekBasedPeriod(_ref) {
+  var year = _ref.year,
+      week = _ref.week,
+      _ref$locale = _ref.locale,
+      locale = _ref$locale === void 0 ? 'en' : _ref$locale,
+      _ref$weekTypeDiff = _ref.weekTypeDiff,
+      weekTypeDiff = _ref$weekTypeDiff === void 0 ? 0 : _ref$weekTypeDiff,
+      _ref$periodLength = _ref.periodLength,
+      periodLength = _ref$periodLength === void 0 ? 6 : _ref$periodLength;
+  var startDate = addDays(weekTypeDiff, getFirstDateOfWeek(year, week));
+  var monthNames = getMonthNamesForLocale(locale);
+  var startMonth = startDate.getMonth();
+  var startYear = startDate.getFullYear();
+  var startMonthName = monthNames[startMonth];
+  var startDayNum = startDate.getDate();
 
-    var endDate = addDays(periodLength, startDate);
-    var endMonth = endDate.getMonth();
-    var endDayNum = endDate.getDate();
-    var endMonthName = monthNames[endMonth];
+  if (week === 53 && startYear !== year) {
+    /* eslint-disable no-param-reassign */
+    week = 1;
+    year = startYear;
+    /* eslint-enable */
+  }
 
-    return {
-        week: week,
-        year: year,
-        startMonthName: startMonthName,
-        startDayNum: startDayNum,
-        endMonthName: endMonthName,
-        endDayNum: endDayNum,
-        startDate: formatAsISODate(startDate),
-        endDate: formatAsISODate(endDate)
-    };
+  var endDate = addDays(periodLength, startDate);
+  var endMonth = endDate.getMonth();
+  var endDayNum = endDate.getDate();
+  var endMonthName = monthNames[endMonth];
+  return {
+    week: week,
+    year: year,
+    startMonthName: startMonthName,
+    startDayNum: startDayNum,
+    endMonthName: endMonthName,
+    endDayNum: endDayNum,
+    startDate: formatAsISODate(startDate),
+    endDate: formatAsISODate(endDate)
+  };
 };
+
+exports.computeWeekBasedPeriod = computeWeekBasedPeriod;
 //# sourceMappingURL=helpers.js.map

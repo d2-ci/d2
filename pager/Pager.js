@@ -1,14 +1,17 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _check = require('../lib/check');
+var _check = require("../lib/check");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 /**
  * @description
@@ -21,7 +24,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   * @memberof module:model
   */
 // TODO: Move to the model map
-var Pager = function () {
+var Pager =
+/*#__PURE__*/
+function () {
   /**
    * @constructor
    *
@@ -32,10 +37,16 @@ var Pager = function () {
    * Returns a newly created pager object with methods to navigate pages.
    */
   function Pager() {
-    var pager = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { page: 1, pageCount: 1, query: {} };
-    var pagingHandler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { list: function list() {
+    var pager = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+      page: 1,
+      pageCount: 1,
+      query: {}
+    };
+    var pagingHandler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+      list: function list() {
         return Promise.reject('No handler available');
-      } };
+      }
+    };
 
     _classCallCheck(this, Pager);
 
@@ -43,12 +54,11 @@ var Pager = function () {
      * @property {number} page Current page number
      */
     this.page = pager.page;
-
     /**
      * @property {number} pageCount The total number of pages available
      */
-    this.pageCount = pager.pageCount;
 
+    this.pageCount = pager.pageCount;
     /**
      * @property {number} total The total number of items available.
      *
@@ -56,24 +66,24 @@ var Pager = function () {
      * This represents the total number of items available in the system. Note it is not the number of items
      * on the current page.
      */
-    this.total = pager.total;
 
+    this.total = pager.total;
     /**
      * @property {string} nextPage The url to the next page.
      *
      * @description
      * If there is no next page then this will be undefined.
      */
-    this.nextPage = pager.nextPage;
 
+    this.nextPage = pager.nextPage;
     /**
      * @property {string} prevPage The url to the previous page
      *
      * @description
      * If there is no previous page then this will be undefined.
      */
-    this.prevPage = pager.prevPage;
 
+    this.prevPage = pager.prevPage;
     /**
      * @property {object} query Query parameters
      *
@@ -81,11 +91,10 @@ var Pager = function () {
      * Query parameters are used for things like filtering and field selection. Used to guarantee that pages are
      * from the same collection.
      */
-    this.query = pager.query;
 
+    this.query = pager.query;
     this.pagingHandler = pagingHandler;
   }
-
   /**
    * @returns {Boolean} Result is true when there is a next page, false when there is not.
    *
@@ -95,11 +104,10 @@ var Pager = function () {
 
 
   _createClass(Pager, [{
-    key: 'hasNextPage',
+    key: "hasNextPage",
     value: function hasNextPage() {
       return (0, _check.isDefined)(this.nextPage);
     }
-
     /**
      * Check whether there is a previous page.
      *
@@ -107,11 +115,10 @@ var Pager = function () {
      */
 
   }, {
-    key: 'hasPreviousPage',
+    key: "hasPreviousPage",
     value: function hasPreviousPage() {
       return (0, _check.isDefined)(this.prevPage);
     }
-
     /**
      * @description
      * Loads the next page in the collection if there is one. If no additional pages are available the Promise will reject.
@@ -131,14 +138,14 @@ var Pager = function () {
      */
 
   }, {
-    key: 'getNextPage',
+    key: "getNextPage",
     value: function getNextPage() {
       if (this.hasNextPage()) {
         return this.goToPage(this.page + 1);
       }
+
       return Promise.reject('There is no next page for this collection');
     }
-
     /**
      * @description
      * Loads the previous page in the collection if there is one. If no previous pages are available the Promise will reject.
@@ -159,14 +166,14 @@ var Pager = function () {
      */
 
   }, {
-    key: 'getPreviousPage',
+    key: "getPreviousPage",
     value: function getPreviousPage() {
       if (this.hasPreviousPage()) {
         return this.goToPage(this.page - 1);
       }
+
       return Promise.reject('There is no previous page for this collection');
     }
-
     /**
      * Loads a specific page for the collection. If the requested page is out of the range of available pages (e.g < 0 or > page count)
      * the Promise will reject with an error.
@@ -187,21 +194,25 @@ var Pager = function () {
     // TODO: Throwing the errors here is not really consistent with the rejection of promises for the getNextPage and getPreviousPage
 
   }, {
-    key: 'goToPage',
+    key: "goToPage",
     value: function goToPage(pageNr) {
       if (pageNr < 1) {
         throw new Error('PageNr can not be less than 1');
       }
+
       if (pageNr > this.pageCount) {
-        throw new Error('PageNr can not be larger than the total page count of ' + this.pageCount);
+        throw new Error("PageNr can not be larger than the total page count of ".concat(this.pageCount));
       }
 
-      return this.pagingHandler.list(Object.assign({}, this.query, { page: pageNr }));
+      return this.pagingHandler.list(Object.assign({}, this.query, {
+        page: pageNr
+      }));
     }
   }]);
 
   return Pager;
 }();
 
-exports.default = Pager;
+var _default = Pager;
+exports.default = _default;
 //# sourceMappingURL=Pager.js.map

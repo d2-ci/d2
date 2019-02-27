@@ -1,14 +1,17 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _check = require('../lib/check');
+var _check = require("../lib/check");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var FILTER_COMPARATORS = {
   /**
@@ -20,6 +23,7 @@ var FILTER_COMPARATORS = {
    * This method can be used to add a equals filter value
    */
   equals: 'eq',
+
   /**
    * @function like
    * @memberof module:model.Filter.prototype
@@ -29,6 +33,7 @@ var FILTER_COMPARATORS = {
    * This method can be used to add a like filter value
    */
   like: 'like',
+
   /**
    * @function ilike
    * @memberof module:model.Filter.prototype
@@ -38,6 +43,7 @@ var FILTER_COMPARATORS = {
    * This method can be used to add a ilike filter value
    */
   ilike: 'ilike',
+
   /**
    * @function
    * @memberof module:model.Filter.prototype
@@ -68,14 +74,15 @@ var FILTER_COMPARATORS = {
    */
   nToken: '!token'
 };
-
 /**
  * Filter class that can be used to build api endpoint filters using a semi-natural language style.
  *
  * @memberof module:model
  */
 
-var Filter = function () {
+var Filter =
+/*#__PURE__*/
+function () {
   /**
    * @constructor
    * @param {Function} addFilterCallback Callback that will be used to notify Filters that the filter is completed
@@ -89,7 +96,6 @@ var Filter = function () {
     this.comparator = 'like';
     this.filterValue = undefined;
   }
-
   /**
    * @param {String} propertyName Property name that the filter should be applied on.
    * @returns {Filter}
@@ -97,14 +103,12 @@ var Filter = function () {
 
 
   _createClass(Filter, [{
-    key: 'on',
+    key: "on",
     value: function on(propertyName) {
       (0, _check.checkDefined)(propertyName, 'Property name to filter on');
-
       this.propertyName = propertyName;
       return this;
     }
-
     /**
      * Utility function used to get the query parameter value in a DHIS2 metadata filter format that can be
      * send to the api. This returned value is appended to the `filter=` part of the query.
@@ -116,11 +120,10 @@ var Filter = function () {
      */
 
   }, {
-    key: 'getQueryParamFormat',
+    key: "getQueryParamFormat",
     value: function getQueryParamFormat() {
       return [this.propertyName, this.comparator, this.filterValue].join(':');
     }
-
     /**
      * @static
      *
@@ -134,8 +137,7 @@ var Filter = function () {
      */
 
   }, {
-    key: 'operator',
-
+    key: "operator",
 
     /**
      * Utility function to add an operator with filterValue
@@ -150,30 +152,26 @@ var Filter = function () {
       return this.addFilterCallback(this);
     }
   }], [{
-    key: 'getFilter',
+    key: "getFilter",
     value: function getFilter(addFilterCallback) {
       return new Filter(addFilterCallback);
     }
   }]);
 
   return Filter;
-}();
-
-// Add the filters to the Filter prototype
+}(); // Add the filters to the Filter prototype
 
 
 Object.keys(FILTER_COMPARATORS).forEach(function (filter) {
   Object.defineProperty(Filter.prototype, filter, {
     value: function filterGetter(filterValue) {
       (0, _check.checkDefined)(filterValue, 'filterValue');
-
       this.comparator = FILTER_COMPARATORS[filter];
       this.filterValue = filterValue;
-
       return this.addFilterCallback(this);
     }
   });
 });
-
-exports.default = Filter;
+var _default = Filter;
+exports.default = _default;
 //# sourceMappingURL=Filter.js.map

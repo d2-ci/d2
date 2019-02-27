@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.generateQuarterlyPeriodsForYear = generateQuarterlyPeriodsForYear;
 
-var _helpers = require('../helpers');
+var _helpers = require("../helpers");
 
 /**
  * Generate Quarterly periods for a year.
@@ -29,31 +29,30 @@ var _helpers = require('../helpers');
  * @param {String} [locale='en-gb'] The locale to use when getting month names.
  */
 function generateQuarterlyPeriodsForYear() {
-    var year = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _helpers.getCurrentYear)();
-    var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-gb';
-    // eslint-disable-line import/prefer-default-export
-    (0, _helpers.validateIfValueIsInteger)(year);
+  var year = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _helpers.getCurrentYear)();
+  var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en-gb';
+  // eslint-disable-line import/prefer-default-export
+  (0, _helpers.validateIfValueIsInteger)(year);
+  var periods = [];
+  var date = new Date("31 Dec ".concat(year));
+  var quarter = 4;
+  var monthNames = (0, _helpers.getMonthNamesForLocale)(locale);
 
-    var periods = [];
-    var date = new Date('31 Dec ' + year);
-    var quarter = 4;
-    var monthNames = (0, _helpers.getMonthNamesForLocale)(locale);
+  while (date.getFullYear() === year) {
+    var period = {};
+    period.endDate = (0, _helpers.formatAsISODate)(date);
+    date.setDate(0);
+    date.setDate(0);
+    date.setDate(1);
+    period.startDate = (0, _helpers.formatAsISODate)(date);
+    period.name = "".concat(monthNames[date.getMonth()], " - ").concat(monthNames[date.getMonth() + 2], " ").concat(date.getFullYear());
+    period.id = "".concat(year, "Q").concat(quarter);
+    periods.push(period);
+    date.setDate(0);
+    quarter -= 1;
+  } // Quarters are collected backwards. So we reverse to get the chronological order.
 
-    while (date.getFullYear() === year) {
-        var period = {};
-        period.endDate = (0, _helpers.formatAsISODate)(date);
-        date.setDate(0);
-        date.setDate(0);
-        date.setDate(1);
-        period.startDate = (0, _helpers.formatAsISODate)(date);
-        period.name = monthNames[date.getMonth()] + ' - ' + monthNames[date.getMonth() + 2] + ' ' + date.getFullYear();
-        period.id = year + 'Q' + quarter;
-        periods.push(period);
-        date.setDate(0);
-        quarter -= 1;
-    }
 
-    // Quarters are collected backwards. So we reverse to get the chronological order.
-    return periods.reverse();
+  return periods.reverse();
 }
 //# sourceMappingURL=quarterly.js.map

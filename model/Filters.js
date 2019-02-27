@@ -1,22 +1,23 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _check = require("../lib/check");
 
-var _check = require('../lib/check');
+var _utils = require("../lib/utils");
 
-var _utils = require('../lib/utils');
-
-var _Filter = require('../model/Filter');
-
-var _Filter2 = _interopRequireDefault(_Filter);
+var _Filter = _interopRequireDefault(require("../model/Filter"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 /**
  * @description
@@ -24,7 +25,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  *
  * @memberof module:model
  */
-var Filters = function () {
+var Filters =
+/*#__PURE__*/
+function () {
   /**
    * Creates a new Filters instance.
    *
@@ -46,7 +49,6 @@ var Filters = function () {
     this.modelDefinition = modelDefinition;
     this.rootJunction = null;
   }
-
   /**
    * Shortcut for triggering the creation of a Filter. This is the function that is triggered when creating new
    * filters on a ModelDefinition. The Filter will receive a callback that can be used to add the finalized filter
@@ -58,13 +60,11 @@ var Filters = function () {
 
 
   _createClass(Filters, [{
-    key: 'on',
+    key: "on",
     value: function on(propertyName) {
       var addFilter = this.add.bind(this);
-
-      return _Filter2.default.getFilter(addFilter).on(propertyName);
+      return _Filter.default.getFilter(addFilter).on(propertyName);
     }
-
     /**
      * Utility method to add a filter to the list of filters.
      *
@@ -76,27 +76,25 @@ var Filters = function () {
      */
 
   }, {
-    key: 'add',
+    key: "add",
     value: function add(filter) {
-      if (!(0, _check.isType)(filter, _Filter2.default)) {
+      if (!(0, _check.isType)(filter, _Filter.default)) {
         throw new TypeError('filter should be an instance of Filter');
       }
-      this.filters.push(filter);
 
+      this.filters.push(filter);
       return this.modelDefinition;
     }
-
     /**
      * @deprecated
      * @returns {Promise} Proxy the list() call on the filters object.
      */
 
   }, {
-    key: 'list',
+    key: "list",
     value: function list() {
       return this.modelDefinition.list();
     }
-
     /**
      * Get an array of DHIS2 metadata filter values to send to the API.
      *
@@ -109,24 +107,22 @@ var Filters = function () {
      */
 
   }, {
-    key: 'getQueryFilterValues',
+    key: "getQueryFilterValues",
     value: function getQueryFilterValues() {
       return this.filters.map(function (filter) {
         return filter.getQueryParamFormat();
       });
     }
-
     /**
      * @deprecated Deprecated since 2.28, use getQueryFilterValues instead.
      * @returns {Array.<string>}
      */
 
   }, {
-    key: 'getFilters',
+    key: "getFilters",
     value: function getFilters() {
       return this.getQueryFilterValues();
     }
-
     /**
      * Get a list of Filter objects that are in applied in this Filters instance
      *
@@ -134,18 +130,17 @@ var Filters = function () {
      */
 
   }, {
-    key: 'getFilterList',
+    key: "getFilterList",
     value: function getFilterList() {
       return this.filters.map(_utils.identity);
     }
-
     /**
      * The logic mode to use on the filters.
      *
      * Default behavior is AND.
      * Note that the logic will be used across all the filters, which
      * means with OR, results will be returned when any of the filter match.
-     * It MUST be called last on the chain of filters when called 
+     * It MUST be called last on the chain of filters when called
      * through modelDefinition.filter().
      * @see {@link https://docs.dhis2.org/master/en/developer/html/webapi_metadata_object_filter.html|Object filter Docs }
      * @example
@@ -155,13 +150,12 @@ var Filters = function () {
      */
 
   }, {
-    key: 'logicMode',
+    key: "logicMode",
     value: function logicMode(junction) {
       (0, _check.checkValidRootJunction)(junction);
       this.rootJunction = junction;
       return this;
     }
-
     /**
      * Factory method to create a Filters object.
      *
@@ -171,10 +165,9 @@ var Filters = function () {
      */
 
   }], [{
-    key: 'getFilters',
+    key: "getFilters",
     value: function getFilters(modelDefinition) {
       var priorFilters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
       return new Filters(modelDefinition, priorFilters);
     }
   }]);
@@ -182,5 +175,6 @@ var Filters = function () {
   return Filters;
 }();
 
-exports.default = Filters;
+var _default = Filters;
+exports.default = _default;
 //# sourceMappingURL=Filters.js.map

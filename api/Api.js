@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-require("whatwg-fetch");
+require("isomorphic-fetch");
 
 var _check = require("../lib/check");
 

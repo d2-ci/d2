@@ -10,7 +10,7 @@ exports.getInstance = getInstance;
 exports.setInstance = setInstance;
 exports.default = exports.config = void 0;
 
-require("whatwg-fetch");
+require("isomorphic-fetch");
 
 var _utils = require("./lib/utils");
 

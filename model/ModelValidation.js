@@ -26,8 +26,7 @@ function extractValidationViolations(webmessage) {
     return webmessage.response.errorReports;
   }
 
-  var error = new Error('Response was not a WebMessage with the expected format');
-  return Promise.reject(error);
+  throw new Error('Response was not a WebMessage with the expected format');
 }
 /**
  * Handles validation of Model objects based on their modelDefinition.
@@ -77,9 +76,7 @@ function () {
 
       var url = "schemas/".concat(model.modelDefinition.name); // TODO: The function getOwnedPropertyJSON should probably not be exposed, perhaps we could have a getJSONForModel(ownedPropertiesOnly=true) method.
 
-      return _Api.default.getApi().post(url, (0, _json.getOwnedPropertyJSON)(model)).catch(function (e) {
-        return Promise.reject(e);
-      }).then(function (webMessage) {
+      return _Api.default.getApi().post(url, (0, _json.getOwnedPropertyJSON)(model)).then(function (webMessage) {
         if (webMessage.status === 'OK') {
           return [];
         }

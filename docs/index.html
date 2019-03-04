@@ -56,36 +56,30 @@
 
 
     <section class="readme">
-        <article><h1>d2</h1><p><a href="https://travis-ci.com/dhis2/d2"><img src="https://travis-ci.com/dhis2/d2.svg" alt="Build Status"></a>
+        <article><h1>d2</h1><p><a href="https://travis-ci.com/dhis2/d2"><img src="https://travis-ci.com/dhis2/d2.svg?branch=master" alt="build status"></a>
+<a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/dhis2/d2.svg" alt="greenkeeper badge"></a>
 <a href="https://badge.fury.io/js/d2"><img src="https://badge.fury.io/js/d2.svg" alt="npm version"></a></p>
-<hr>
-<h1>Documentation</h1><p>The full api documentation is available at <a href="https://d2-ci.github.io/d2/">full api documentation</a></p>
-<h1>Quickstart  guide</h1><h2>Install</h2><p>Start with adding d2 to your project.</p>
+<p>The full api documentation is available <a href="https://d2-ci.github.io/d2/">here</a>. To get started we suggest you read the <a href="https://d2-ci.github.io/d2/tutorial-overview.html">overview</a>. If you already know what you're looking for we suggest the reference material on what is available on the instance of <a href="https://d2-ci.github.io/d2/module-d2.init-d2.html">d2</a>.</p>
+<p>For more information on how the models work the <a href="https://d2-ci.github.io/d2/module-model.html">model module documentation</a> is helpful reference material. For other questions see the <a href="https://d2-ci.github.io/d2/tutorial-FAQ.html">FAQ</a>.</p>
+<h2>Quickstart guide</h2><h3>Install</h3><p>Start with adding d2 to your project:</p>
 <p><code>yarn add d2</code> or <code>npm install d2</code></p>
-<p>After installing you will be able to import the library into your project by using the files in the <code>lib</code> folder.</p>
+<p>After installing you will be able to import the library into your project by using the files in the <code>lib</code> folder:</p>
 <pre class="prettyprint source lang-js"><code>// Using ES2015 imports
 import d2 from 'd2';
 
 // Using CommonJS imports
-var d2 = require('d2');</code></pre><p>If you want to use <code>d2</code> as just a global variable on the window object you can include one of the following scripts in
-your page <code>d2/d2-browser.js</code> or <code>d2/d2-browser.min.js</code></p>
-<h2>Initialise the library</h2><p>To be able to use d2 you will first need to initialise the library. This is required to let the library know
-where it should load data from (e.g. the schemas, currentUser, authorities). The schemas are the definitions of the data model as it is used in DHIS2.</p>
-<p>To do this you have can provide d2 with a <code>baseUrl</code>. (If you don't provide any the default of <code>../api</code> will be used)</p>
+var d2 = require('d2');</code></pre><p>If you want to use <code>d2</code> as just a global variable on the window object you can include one of the following scripts in your page <code>d2/d2-browser.js</code> or <code>d2/d2-browser.min.js</code>.</p>
+<h3>Initialise the library</h3><p>To be able to use d2 you will first need to initialise the library. This is required to let the library know where it should load its data from (e.g. the schemas, currentUser, authorities). The schemas are the definitions of the data model as used in DHIS2.</p>
+<p>To do this you can provide d2 with a <code>baseUrl</code> (if you don't provide any the default of <code>../api</code> will be used):</p>
 <pre class="prettyprint source lang-js"><code>import { init } from 'd2';
 
 init({ baseUrl: 'http://apps.dhis2.org/dev/api' })
   .then(d2 => {
     //Your d2 is initialised and ready to use.
-  });</code></pre><h2>Get first page of users and print their name</h2><pre class="prettyprint source lang-js"><code>d2.models.user.list()
+  });</code></pre><h3>Get first page of users and print their names</h3><pre class="prettyprint source lang-js"><code>d2.models.user.list()
   .then(userCollection => {
     userCollection.forEach(user => console.log(user.name)));
-  });</code></pre><h1>Getting started</h1><p>To get started we suggest you read the <a href="https://d2-ci.github.io/d2/tutorial-overview.html">Overview</a></p>
-<p>If you are already fairly familiar what you are probably looking for would be the reference material on what is available
-on the instance of <a href="https://d2-ci.github.io/d2/module-d2.init-d2.html">d2</a>.</p>
-<p>For more information on how the Models work the <code>model</code> <a href="https://d2-ci.github.io/d2/module-model.html">module documentation</a> and
-the classes in the module are the current go to reference material.</p>
-<p>For other questions see the <a href="https://d2-ci.github.io/d2/tutorial-FAQ.html">FAQ</a> or the <a href="https://d2-ci.github.io/d2">full api documentation</a>.</p></article>
+  });</code></pre><p>That's it! See the documentation referenced above for further information.</p></article>
     </section>
 
 
@@ -100,7 +94,7 @@ the classes in the module are the current go to reference material.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Feb 28 2019 14:51:06 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Mar 04 2019 08:36:44 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

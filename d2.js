@@ -8,7 +8,7 @@ exports.getUserSettings = getUserSettings;
 exports.init = init;
 exports.getInstance = getInstance;
 exports.setInstance = setInstance;
-exports.default = exports.config = void 0;
+exports.config = void 0;
 
 require("isomorphic-fetch");
 
@@ -427,12 +427,4 @@ function setInstance(d2) {
 var config = preInitConfig; // Alias preInitConfig to be able to `import {config} from 'd2';`
 
 exports.config = config;
-var _default = {
-  init: init,
-  config: config,
-  getInstance: getInstance,
-  getUserSettings: getUserSettings,
-  getManifest: getManifest
-};
-exports.default = _default;
 //# sourceMappingURL=d2.js.map

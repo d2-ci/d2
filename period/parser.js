@@ -252,16 +252,17 @@ var regexMatchToPeriod = {
     var endMonth = s === 0 ? 4 : 10;
     var endMonthNum = "0".concat(endMonth).substr(-2);
     var monthNames = (0, _helpers.getMonthNamesForLocale)(locale);
-    var endYear = s === 0 ? year + 1 : year;
+    var startYear = s === 0 ? year : year + 1;
+    var endYear = year + 1;
     return {
       id: id,
       name: s === 0 ? "".concat(monthNames[startMonth - 1], " ").concat(year, " - ").concat(monthNames[endMonth - 1], " ").concat(endYear) : "".concat(monthNames[startMonth - 1], " - ").concat(monthNames[endMonth - 1], " ").concat(endYear),
-      startDate: "".concat(year, "-").concat(startMonthNum, "-01"),
+      startDate: "".concat(startYear, "-").concat(startMonthNum, "-01"),
       endDate: "".concat(endYear, "-").concat(endMonthNum, "-").concat(s === 0 ? '30' : '31')
     };
   },
 
-  /* eslint-enable complexity */
+  /* eslint-enable */
   Yearly: function Yearly(match) {
     return {
       id: match[0],

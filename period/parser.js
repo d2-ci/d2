@@ -311,7 +311,9 @@ function getPeriodFromPeriodId(periodId) {
   var period = Object.keys(periodTypeRegex).filter(function (periodType) {
     return periodTypeRegex[periodType].test(periodId) && regexMatchToPeriod.hasOwnProperty(periodType);
   }).map(function (periodType) {
-    return regexMatchToPeriod[periodType](periodId.match(periodTypeRegex[periodType]), locale);
+    var matchedPeriod = regexMatchToPeriod[periodType](periodId.match(periodTypeRegex[periodType]), locale);
+    matchedPeriod.type = periodType;
+    return matchedPeriod;
   })[0];
 
   if (!period) {

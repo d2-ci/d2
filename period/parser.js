@@ -43,7 +43,9 @@ var periodTypeRegex = {
   // YYYY"April"
   FinancialJuly: /^([0-9]{4})July$/,
   // YYYY"July"
-  FinancialOct: /^([0-9]{4})Oct$/ // YYYY"Oct"
+  FinancialOct: /^([0-9]{4})Oct$/,
+  // YYYY"Oct"
+  FinancialNov: /^([0-9]{4})Nov$/ // YYYY"Nov"
 
 };
 /* eslint-disable complexity */
@@ -302,6 +304,17 @@ var regexMatchToPeriod = {
       name: "".concat(monthNames[9], " ").concat(year, " - ").concat(monthNames[8], " ").concat(year + 1),
       startDate: "".concat(year, "-10-01"),
       endDate: "".concat(year + 1, "-09-30")
+    };
+  },
+  FinancialNov: function FinancialNov(match) {
+    var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en';
+    var year = parseInt(match[1], 10);
+    var monthNames = (0, _helpers.getMonthNamesForLocale)(locale);
+    return {
+      id: match[0],
+      name: "".concat(monthNames[10], " ").concat(year, " - ").concat(monthNames[9], " ").concat(year + 1),
+      startDate: "".concat(year, "-11-01"),
+      endDate: "".concat(year + 1, "-10-31")
     };
   }
 };

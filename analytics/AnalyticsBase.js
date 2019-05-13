@@ -75,7 +75,7 @@ function () {
     value: function get(req) {
       // keep metaData and data requests separate for caching purposes
       var metaDataReq = new _AnalyticsRequest.default(req).withSkipMeta(false).withSkipData(true).withIncludeMetadataDetails(true);
-      var dataReq = new _AnalyticsRequest.default(req).withSkipData(false).withSkipMeta(true).withIncludeNumDen().withDisplayProperty('SHORTNAME'); // parallelize requests
+      var dataReq = new _AnalyticsRequest.default(req).withSkipData(false).withSkipMeta(true); // parallelize requests
 
       return Promise.all([this.fetch(dataReq, {
         sorted: true

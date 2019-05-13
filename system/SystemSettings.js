@@ -115,17 +115,32 @@ function () {
   }, {
     key: "set",
     value: function set(systemSettingsKey, value) {
-      delete this.settings;
+      var _this3 = this;
+
       var settingUrl = ['systemSettings', systemSettingsKey].join('/');
 
       if (value === null || "".concat(value).length === 0) {
-        return this.api.delete(settingUrl);
+        return this.api.delete(settingUrl).then(function (response) {
+          // Update cache if present
+          if (_this3.settings && _this3.settings[systemSettingsKey]) {
+            delete _this3.settings[systemSettingsKey];
+          }
+
+          return response;
+        });
       }
 
       return this.api.post(settingUrl, value, {
         headers: {
           'Content-Type': 'text/plain'
         }
+      }).then(function (response) {
+        // update cache if present
+        if (_this3.settings) {
+          _this3.settings[systemSettingsKey] = value;
+        }
+
+        return response;
       });
     }
   }]);

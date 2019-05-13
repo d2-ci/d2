@@ -35,13 +35,17 @@ var periodTypeRegex = {
   // YYYY"S"[1/2]
   SixMonthlyApril: /^([0-9]{4})AprilS([12])$/,
   // YYYY"AprilS"[1/2]
+  SixMonthlyNov: /^([0-9]{4})NovS([12])$/,
+  // YYYY"NovS"[1/2]
   Yearly: /^([0-9]{4})$/,
   // YYYY
   FinancialApril: /^([0-9]{4})April$/,
   // YYYY"April"
   FinancialJuly: /^([0-9]{4})July$/,
   // YYYY"July"
-  FinancialOct: /^([0-9]{4})Oct$/ // YYYY"Oct"
+  FinancialOct: /^([0-9]{4})Oct$/,
+  // YYYY"Oct"
+  FinancialNov: /^([0-9]{4})Nov$/ // YYYY"Nov"
 
 };
 /* eslint-disable complexity */
@@ -238,6 +242,29 @@ var regexMatchToPeriod = {
       endDate: "".concat(year + s, "-").concat(endMonthNum, "-").concat(s === 0 ? '30' : '31')
     };
   },
+
+  /* eslint-disable complexity */
+  SixMonthlyNov: function SixMonthlyNov(match) {
+    var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en';
+    var id = match[0];
+    var year = parseInt(match[1], 10);
+    var s = parseInt(match[2], 10) - 1;
+    var startMonth = s === 0 ? 11 : 5;
+    var startMonthNum = "0".concat(startMonth).substr(-2);
+    var endMonth = s === 0 ? 4 : 10;
+    var endMonthNum = "0".concat(endMonth).substr(-2);
+    var monthNames = (0, _helpers.getMonthNamesForLocale)(locale);
+    var startYear = s === 0 ? year : year + 1;
+    var endYear = year + 1;
+    return {
+      id: id,
+      name: s === 0 ? "".concat(monthNames[startMonth - 1], " ").concat(year, " - ").concat(monthNames[endMonth - 1], " ").concat(endYear) : "".concat(monthNames[startMonth - 1], " - ").concat(monthNames[endMonth - 1], " ").concat(endYear),
+      startDate: "".concat(startYear, "-").concat(startMonthNum, "-01"),
+      endDate: "".concat(endYear, "-").concat(endMonthNum, "-").concat(s === 0 ? '30' : '31')
+    };
+  },
+
+  /* eslint-enable */
   Yearly: function Yearly(match) {
     return {
       id: match[0],
@@ -278,6 +305,17 @@ var regexMatchToPeriod = {
       startDate: "".concat(year, "-10-01"),
       endDate: "".concat(year + 1, "-09-30")
     };
+  },
+  FinancialNov: function FinancialNov(match) {
+    var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en';
+    var year = parseInt(match[1], 10);
+    var monthNames = (0, _helpers.getMonthNamesForLocale)(locale);
+    return {
+      id: match[0],
+      name: "".concat(monthNames[10], " ").concat(year, " - ").concat(monthNames[9], " ").concat(year + 1),
+      startDate: "".concat(year, "-11-01"),
+      endDate: "".concat(year + 1, "-10-31")
+    };
   }
 };
 
@@ -286,7 +324,9 @@ function getPeriodFromPeriodId(periodId) {
   var period = Object.keys(periodTypeRegex).filter(function (periodType) {
     return periodTypeRegex[periodType].test(periodId) && regexMatchToPeriod.hasOwnProperty(periodType);
   }).map(function (periodType) {
-    return regexMatchToPeriod[periodType](periodId.match(periodTypeRegex[periodType]), locale);
+    var matchedPeriod = regexMatchToPeriod[periodType](periodId.match(periodTypeRegex[periodType]), locale);
+    matchedPeriod.type = periodType;
+    return matchedPeriod;
   })[0];
 
   if (!period) {

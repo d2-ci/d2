@@ -127,7 +127,6 @@ function () {
   }, {
     key: "uploadApp",
     value: function uploadApp(zipFile, onProgress) {
-      // eslint-disable-line class-methods-use-this
       var api = _Api.default.getApi();
 
       var data = new FormData();
@@ -197,7 +196,6 @@ function () {
   }, {
     key: "installAppVersion",
     value: function installAppVersion(uid) {
-      // eslint-disable-line class-methods-use-this
       var api = _Api.default.getApi();
 
       return new Promise(function (resolve, reject) {
@@ -220,7 +218,6 @@ function () {
   }, {
     key: "uninstallApp",
     value: function uninstallApp(appKey) {
-      // eslint-disable-line class-methods-use-this
       var api = _Api.default.getApi();
 
       return api.delete(['apps', appKey].join('/')) // TODO: Stop jQuery from rejecting successful promises

@@ -103,8 +103,7 @@ function () {
               value = _line$split$map2[1];
 
           if (key !== undefined && value !== undefined && !props.hasOwnProperty(key)) {
-            props[key] = value // eslint-disable-line no-param-reassign
-            .replace(/\\u([0-9a-f]{4})/gi, function (match, grp) {
+            props[key] = value.replace(/\\u([0-9a-f]{4})/gi, function (match, grp) {
               return String.fromCharCode(parseInt(grp, 16));
             });
           }

@@ -225,7 +225,7 @@ function () {
         if (value.resetDirtyState) {
           value.resetDirtyState();
         } else {
-          value.dirty = false; // eslint-disable-line no-param-reassign
+          value.dirty = false;
         }
       });
       this[DIRTY_PROPERTY_LIST].clear();

@@ -65,7 +65,6 @@ function generateUid() {
 
 function isValidUid(code) {
   if (code == null) {
-    // eslint-disable-line eqeqeq
     return false;
   }
 

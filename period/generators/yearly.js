@@ -12,7 +12,6 @@ var _helpers = require("../helpers");
 function generateYearlyPeriodsUpToYear() {
   var year = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _helpers.getCurrentYear)();
   var numberOfYears = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
-  // eslint-disable-line import/prefer-default-export
   (0, _helpers.validateIfValueIsInteger)(year);
 
   if (!(0, _check.isInteger)(numberOfYears) || numberOfYears < 1) {

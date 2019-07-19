@@ -228,10 +228,8 @@ var computeWeekBasedPeriod = function computeWeekBasedPeriod(_ref) {
   var startDayNum = startDate.getDate();
 
   if (week === 53 && startYear !== year) {
-    /* eslint-disable no-param-reassign */
     week = 1;
     year = startYear;
-    /* eslint-enable */
   }
 
   var endDate = addDays(periodLength, startDate);

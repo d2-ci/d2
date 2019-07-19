@@ -181,7 +181,7 @@ function () {
       var requestUrl = getUrl(this.baseUrl, url);
       var payload = data; // Ensure that headers are defined and are treated without case sensitivity
 
-      options.headers = new Headers(options.headers || {}); // eslint-disable-line
+      options.headers = new Headers(options.headers || {});
 
       if (data !== undefined) {
         if (data.constructor.name === 'FormData') {
@@ -320,7 +320,7 @@ function () {
           return filter.split(':').map(encodeURIComponent).join(':');
         });
         query = "".concat(query).concat(query.length ? '&' : '', "filter=").concat(encodedFilters.join('&filter='));
-        delete data.filter; // eslint-disable-line no-param-reassign
+        delete data.filter;
       } // When using the GET method, transform the data object to query parameters
 
 
@@ -399,8 +399,8 @@ function () {
               }
 
               if (!process.env || process.env.npm_lifecycle_event !== 'test') {
-                console.warn( // eslint-disable-line
-                "API request failed with status ".concat(response.status, " ").concat(response.statusText, "\n"), "Request: ".concat(requestOptions.method, " ").concat(requestUrl));
+                // eslint-disable-next-line
+                console.warn("API request failed with status ".concat(response.status, " ").concat(response.statusText, "\n"), "Request: ".concat(requestOptions.method, " ").concat(requestUrl));
               }
 
               reject(parsedResponseData);

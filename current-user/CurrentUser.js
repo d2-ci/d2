@@ -52,8 +52,7 @@ var authTypes = {
 
 };
 var propertySymbols = Array.from(propertiesToIgnore).reduce(function (result, property) {
-  result[property] = Symbol(property); // eslint-disable-line no-param-reassign
-
+  result[property] = Symbol(property);
   return result;
 }, {});
 /**
@@ -81,13 +80,12 @@ function getPropertiesForCurrentUserObject(currentUserObject) {
   return Object.keys(properties).reduce(function (result, property) {
     if (propertiesToIgnore.has(property)) {
       if (properties[property].map) {
-        result[propertySymbols[property]] = properties[property] // eslint-disable-line no-param-reassign
-        .map(function (value) {
+        result[propertySymbols[property]] = properties[property].map(function (value) {
           return value.id;
         });
       }
     } else {
-      result[property] = properties[property]; // eslint-disable-line no-param-reassign
+      result[property] = properties[property];
     }
 
     return result;

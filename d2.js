@@ -328,8 +328,7 @@ function init(initConfig) {
     // The schemas endpoint is not versioned which will result into the modelDefinitions always using the
     // "default" endpoint, we therefore modify the endpoint url based on the given baseUrl.
     .map(function (schema) {
-      schema.apiEndpoint = (0, _utils.updateAPIUrlWithBaseUrlVersionNumber)(schema.apiEndpoint, config.baseUrl); // eslint-disable-line no-param-reassign
-
+      schema.apiEndpoint = (0, _utils.updateAPIUrlWithBaseUrlVersionNumber)(schema.apiEndpoint, config.baseUrl);
       return schema;
     }).forEach(function (schema) {
       // Attributes that do not have values do not by default get returned with the data,
@@ -401,7 +400,6 @@ function getInstance() {
 }
 
 function setInstance(d2) {
-  console.warn('[d2] Overriding d2 instance; you better be sure about this.');
   deferredD2Init.resolve(d2);
 }
 /**

@@ -139,6 +139,7 @@ var AnalyticsRequestDimensionsMixin = function AnalyticsRequestDimensionsMixin(b
          *
          * // dimension=Bpx0589u8y0:oRVt7g429ZO;MAs88nJc9nL&dimension=qrur9Dvnyt5-Yf6UHoPkdS6
          */
+        // eslint-disable-next-line complexity
 
       }, {
         key: "addDimension",

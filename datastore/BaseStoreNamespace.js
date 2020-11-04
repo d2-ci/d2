@@ -62,7 +62,7 @@ function () {
     }
 
     if (this.constructor === BaseStoreNamespace) {
-      throw new Error('Can\'t instantiate abstract class!');
+      throw new Error("Can't instantiate abstract class!");
     }
 
     this.api = api;

@@ -10,7 +10,6 @@ var _helpers = require("../helpers");
 function generateBiMonthlyPeriodsForYear() {
   var year = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _helpers.getCurrentYear)();
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en';
-  // eslint-disable-line import/prefer-default-export
   (0, _helpers.validateIfValueIsInteger)(year);
   var periods = [];
   var date = new Date("31 Dec ".concat(year));

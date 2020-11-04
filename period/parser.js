@@ -47,8 +47,9 @@ var periodTypeRegex = {
   // YYYY"Oct"
   FinancialNov: /^([0-9]{4})Nov$/ // YYYY"Nov"
 
+  /* eslint-disable complexity */
+
 };
-/* eslint-disable complexity */
 
 var weeklyMatcherParser = function weeklyMatcherParser(match) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en';

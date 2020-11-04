@@ -9,7 +9,7 @@ var _check = require("../lib/check");
 
 var _utils = require("../lib/utils");
 
-var _Filter = _interopRequireDefault(require("../model/Filter"));
+var _Filter = _interopRequireDefault(require("./Filter"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

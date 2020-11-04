@@ -85,7 +85,7 @@ function createModelPropertyDescriptor(propertiesObject, schemaProperty) {
   }
 
   if (propertyName) {
-    propertiesObject[propertyName] = propertyDetails; // eslint-disable-line no-param-reassign
+    propertiesObject[propertyName] = propertyDetails;
   }
 }
 
@@ -94,7 +94,8 @@ function createPropertiesObject(schemaProperties) {
   var createModelPropertyDescriptorOn = (0, _utils.curry)(createModelPropertyDescriptor, propertiesObject);
   (schemaProperties || []).forEach(createModelPropertyDescriptorOn);
   return propertiesObject;
-}
+} // eslint-disable-next-line complexity
+
 
 function createValidationSetting(validationObject, schemaProperty) {
   var propertyName = schemaProperty.collection ? schemaProperty.collectionName : schemaProperty.name;
@@ -125,7 +126,7 @@ function createValidationSetting(validationObject, schemaProperty) {
   }
 
   if (propertyName) {
-    validationObject[propertyName] = validationDetails; // eslint-disable-line no-param-reassign
+    validationObject[propertyName] = validationDetails;
   }
 }
 
@@ -137,6 +138,7 @@ function createValidations(schemaProperties) {
 }
 
 function shouldBeModelCollectionProperty(model, models) {
+  // eslint-disable-next-line complexity
   return function shouldBeModelCollectionPropertyIterator(modelProperty) {
     return model && models && model.modelDefinition && model.modelDefinition.modelValidations && model.modelDefinition.modelValidations[modelProperty] && model.modelDefinition.modelValidations[modelProperty].type === 'COLLECTION' && models.hasOwnProperty(model.modelDefinition.modelValidations[modelProperty].referenceType);
   };
@@ -160,6 +162,7 @@ var translatableProperties = new WeakMap();
 var ModelDefinition =
 /*#__PURE__*/
 function () {
+  // eslint-disable-next-line complexity
   function ModelDefinition() {
     var schema = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var properties = arguments.length > 1 ? arguments[1] : undefined;
@@ -485,8 +488,7 @@ function () {
       }
 
       return Object.freeze(new ModelDefinitionClass(schema, Object.freeze(createPropertiesObject(schema.properties)), Object.freeze(createValidations(schema.properties)), attributes.reduce(function (current, attributeDefinition) {
-        current[attributeDefinition.name] = attributeDefinition; // eslint-disable-line no-param-reassign
-
+        current[attributeDefinition.name] = attributeDefinition;
         return current;
       }, {}), schema.authorities));
     }
@@ -542,8 +544,7 @@ function (_ModelDefinition2) {
       var dataClone = Object.keys(data).filter(function (key) {
         return key !== 'compulsoryDataElementOperands';
       }).reduce(function (obj, key) {
-        obj[key] = data[key]; // eslint-disable-line no-param-reassign
-
+        obj[key] = data[key];
         return obj;
       }, {}); // Create the model using the usual way of creating a model
       // Only pass data when there is data in the object passed to the constructor. This will guarantee

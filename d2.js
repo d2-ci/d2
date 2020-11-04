@@ -291,8 +291,9 @@ function init(initConfig) {
      * @see {@link module:geoFeatures.GeoFeatures GeoFeatures}
      * @instance
      */
-    geoFeatures: _GeoFeatures.default.getGeoFeatures()
-  }; // Process the config in a the config class to keep all config calls together.
+    geoFeatures: _GeoFeatures.default.getGeoFeatures() // Process the config in a the config class to keep all config calls together.
+
+  };
 
   _config.default.processConfigForD2(config, d2); // Because when importing the getInstance method in dependencies the getInstance could run before
   // init we have to resolve the current promise on first run and for consecutive ones replace the
@@ -327,8 +328,7 @@ function init(initConfig) {
     // The schemas endpoint is not versioned which will result into the modelDefinitions always using the
     // "default" endpoint, we therefore modify the endpoint url based on the given baseUrl.
     .map(function (schema) {
-      schema.apiEndpoint = (0, _utils.updateAPIUrlWithBaseUrlVersionNumber)(schema.apiEndpoint, config.baseUrl); // eslint-disable-line no-param-reassign
-
+      schema.apiEndpoint = (0, _utils.updateAPIUrlWithBaseUrlVersionNumber)(schema.apiEndpoint, config.baseUrl);
       return schema;
     }).forEach(function (schema) {
       // Attributes that do not have values do not by default get returned with the data,
@@ -400,7 +400,6 @@ function getInstance() {
 }
 
 function setInstance(d2) {
-  console.warn('[d2] Overriding d2 instance; you better be sure about this.');
   deferredD2Init.resolve(d2);
 }
 /**

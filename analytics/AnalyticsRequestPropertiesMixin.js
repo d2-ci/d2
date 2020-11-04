@@ -39,17 +39,17 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
  * @param {*} base The base class to mix onto
  * @return {module:analytics.AnalyticsRequestPropertiesMixin} The mixin class
  */
+
+/**
+ * @private
+ * @description
+ * AnalyticsRequest properties mixin
+ *
+ * @alias module:analytics.AnalyticsRequestPropertiesMixin
+ */
 var AnalyticsRequestPropertiesMixin = function AnalyticsRequestPropertiesMixin(base) {
   return (
     /*#__PURE__*/
-
-    /**
-     * @private
-     * @description
-     * AnalyticsRequest properties mixin
-     *
-     * @alias module:analytics.AnalyticsRequestPropertiesMixin
-     */
     function (_base) {
       _inherits(_class, _base);
 

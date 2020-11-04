@@ -93,7 +93,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  * organisationUnitsOnLevel3WithParent
  *  .list({ paging: false }) // Loads all organisation units on level 3 with O6uvpzGd5pu as their parent
-*   .then(organisationUnitCollection => console.log(organisationUnitCollection));
+ *   .then(organisationUnitCollection => console.log(organisationUnitCollection));
  * ```
  *
  * As you might have noticed we passed `{ paging: false }` to the `.list` method. Any options passed to the list method

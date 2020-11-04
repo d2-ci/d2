@@ -15,7 +15,6 @@ var getAttributeValueAttributeName = (0, _utils.pick)('attribute.name');
 function createPropertyDefinitionsForAttributes(attributeProperties, getAttributeValues, setAttributeValues, setDirty) {
   return Object.keys(attributeProperties).reduce(function (propertyDefinitions, attributeName) {
     propertyDefinitions[attributeName] = {
-      // eslint-disable-line no-param-reassign
       enumerable: true,
       get: function get() {
         var attributeValues = getAttributeValues();

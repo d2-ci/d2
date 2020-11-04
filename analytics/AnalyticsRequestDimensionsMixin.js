@@ -43,17 +43,17 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
  * @param {*} base The base class to mix onto
  * @return {module:analytics.AnalyticsRequestDimensionsMixin} The mixin class
  */
+
+/**
+ * @private
+ * @description
+ * AnalyticsRequest dimensions mixin class
+ *
+ * @alias module:analytics.AnalyticsRequestDimensionsMixin
+ */
 var AnalyticsRequestDimensionsMixin = function AnalyticsRequestDimensionsMixin(base) {
   return (
     /*#__PURE__*/
-
-    /**
-     * @private
-     * @description
-     * AnalyticsRequest dimensions mixin class
-     *
-     * @alias module:analytics.AnalyticsRequestDimensionsMixin
-     */
     function (_base) {
       _inherits(_class, _base);
 
@@ -139,6 +139,7 @@ var AnalyticsRequestDimensionsMixin = function AnalyticsRequestDimensionsMixin(b
          *
          * // dimension=Bpx0589u8y0:oRVt7g429ZO;MAs88nJc9nL&dimension=qrur9Dvnyt5-Yf6UHoPkdS6
          */
+        // eslint-disable-next-line complexity
 
       }, {
         key: "addDimension",

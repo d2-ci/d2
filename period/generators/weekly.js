@@ -16,7 +16,6 @@ var _helpers = require("../helpers");
  */
 function generateWeeklyPeriodsForYear() {
   var year = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _helpers.getCurrentYear)();
-  // eslint-disable-line import/prefer-default-export
   (0, _helpers.validateIfValueIsInteger)(year);
   var periods = [];
   var weeksInYear = (0, _helpers.is53WeekISOYear)(year) ? 53 : 52;

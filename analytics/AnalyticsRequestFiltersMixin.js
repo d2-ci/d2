@@ -44,17 +44,17 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
  * @return {module:analytics.AnalyticsRequestFiltersMixin} The mixin class
  * @mixin
  */
+
+/**
+ * @private
+ * @description
+ * AnalyticsRequest filters mixin class
+ *
+ * @alias module:analytics.AnalyticsRequestFiltersMixin
+ */
 var AnalyticsRequestFiltersMixin = function AnalyticsRequestFiltersMixin(base) {
   return (
     /*#__PURE__*/
-
-    /**
-     * @private
-     * @description
-     * AnalyticsRequest filters mixin class
-     *
-     * @alias module:analytics.AnalyticsRequestFiltersMixin
-     */
     function (_base) {
       _inherits(_class, _base);
 
@@ -139,6 +139,7 @@ var AnalyticsRequestFiltersMixin = function AnalyticsRequestFiltersMixin(base) {
          *
          * // filter=Bpx0589u8y0:oRVt7g429ZO;MAs88nJc9nL&filter=qrur9Dvnyt5-Yf6UHoPkdS6
          */
+        // eslint-disable-next-line complexity
 
       }, {
         key: "addFilter",

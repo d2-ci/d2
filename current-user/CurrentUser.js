@@ -41,19 +41,18 @@ var authTypes = {
   DELETE: ['DELETE'],
   UPDATE: ['UPDATE'],
   EXTERNALIZE: ['EXTERNALIZE']
+  /**
+   * Create a map of `propertyName` -> `Symbol`. This map is used to hide values for these properties. We will instead add
+   * add convenience methods for these properties. (e.g. the `userGroups` property on the currentUser object becomes
+   * `getUserGroups()`
+   *
+   * @private
+   * @type {Object.<string, Symbol>}
+   */
+
 };
-/**
- * Create a map of `propertyName` -> `Symbol`. This map is used to hide values for these properties. We will instead add
- * add convenience methods for these properties. (e.g. the `userGroups` property on the currentUser object becomes
- * `getUserGroups()`
- *
- * @private
- * @type {Object.<string, Symbol>}
- */
-
 var propertySymbols = Array.from(propertiesToIgnore).reduce(function (result, property) {
-  result[property] = Symbol(property); // eslint-disable-line no-param-reassign
-
+  result[property] = Symbol(property);
   return result;
 }, {});
 /**
@@ -81,13 +80,12 @@ function getPropertiesForCurrentUserObject(currentUserObject) {
   return Object.keys(properties).reduce(function (result, property) {
     if (propertiesToIgnore.has(property)) {
       if (properties[property].map) {
-        result[propertySymbols[property]] = properties[property] // eslint-disable-line no-param-reassign
-        .map(function (value) {
+        result[propertySymbols[property]] = properties[property].map(function (value) {
           return value.id;
         });
       }
     } else {
-      result[property] = properties[property]; // eslint-disable-line no-param-reassign
+      result[property] = properties[property];
     }
 
     return result;

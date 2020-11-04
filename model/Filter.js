@@ -93,12 +93,13 @@ var FILTER_COMPARATORS = {
    * This method can be used to add a !token filter value
    */
   nToken: '!token'
+  /**
+   * Filter class that can be used to build api endpoint filters using a semi-natural language style.
+   *
+   * @memberof module:model
+   */
+
 };
-/**
- * Filter class that can be used to build api endpoint filters using a semi-natural language style.
- *
- * @memberof module:model
- */
 
 var Filter =
 /*#__PURE__*/

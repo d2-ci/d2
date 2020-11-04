@@ -28,7 +28,6 @@ var getFormatterMemoized = function () {
 
 function toLocaleDayFormat(date) {
   var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en';
-  // eslint-disable-line import/prefer-default-export
   return getFormatterMemoized(locale, localeDayFormatOptions).format(date);
 }
 //# sourceMappingURL=formatters.js.map

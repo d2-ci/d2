@@ -13,7 +13,6 @@ function generateFinancialJulyPeriodsUpToYear() {
   var year = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _helpers.getCurrentYear)();
   var numberOfYears = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
   var locale = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'en';
-  // eslint-disable-line import/prefer-default-export
   (0, _helpers.validateIfValueIsInteger)(year);
 
   if (!(0, _check.isInteger)(numberOfYears) || numberOfYears < 1) {

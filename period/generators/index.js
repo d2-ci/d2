@@ -38,7 +38,6 @@ var _financialApril = require("./financial-april");
  */
 function createPeriodGeneratorsForLocale() {
   var locale = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'en';
-  // eslint-disable-line import/prefer-default-export
   return {
     generateDailyPeriodsForYear: function generateDailyPeriodsForYear(year) {
       return (0, _daily.generateDailyPeriodsForYear)(year, locale);

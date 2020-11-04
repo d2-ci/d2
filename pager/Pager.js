@@ -21,8 +21,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  */
 
 /**
-  * @memberof module:model
-  */
+ * @memberof module:model
+ */
 // TODO: Move to the model map
 var Pager =
 /*#__PURE__*/

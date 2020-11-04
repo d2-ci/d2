@@ -60,9 +60,29 @@ var FILTER_COMPARATORS = {
    * @returns {Filter} Returns the modified filter for chaining
    *
    * @description
-   * This method can be used to add a token filter value
+   * This method can be used to add a in filter value
+   */
+  in: 'in',
+
+  /**
+   * @function
+   * @memberof module:model.Filter.prototype
+   * @returns {Filter} Returns the modified filter for chaining
+   *
+   * @description
+   * This method can be used to add a tokens filter value
    */
   token: 'token',
+
+  /**
+   * @function
+   * @memberof module:model.Filter.prototype
+   * @returns {Filter} Returns the modified filter for chaining
+   *
+   * @description
+   * This method can be used to add a !in filter value
+   */
+  notIn: '!in',
 
   /**
    * @function
@@ -168,7 +188,7 @@ Object.keys(FILTER_COMPARATORS).forEach(function (filter) {
     value: function filterGetter(filterValue) {
       (0, _check.checkDefined)(filterValue, 'filterValue');
       this.comparator = FILTER_COMPARATORS[filter];
-      this.filterValue = filterValue;
+      this.filterValue = [FILTER_COMPARATORS.in, FILTER_COMPARATORS.notIn].includes(this.comparator) ? "[".concat(filterValue.join(','), "]") : filterValue;
       return this.addFilterCallback(this);
     }
   });

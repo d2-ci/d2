@@ -148,7 +148,8 @@ function () {
   }, {
     key: "isValidOrgUnitLevel",
     value: function isValidOrgUnitLevel(level) {
-      return /^LEVEL-[0-9]+$/.test(level);
+      var match = level.match(/LEVEL-(.*)$/);
+      return Array.isArray(match) && (/^[0-9]+$/.test(match[1]) || (0, _uid.isValidUid)(match[1]));
     }
     /**
      * @method isValidOrgUnitGroup
